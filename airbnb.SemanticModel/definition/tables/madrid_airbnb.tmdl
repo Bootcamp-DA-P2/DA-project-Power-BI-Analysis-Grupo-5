@@ -158,7 +158,7 @@ table madrid_airbnb
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\madrid_airbnb.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\madrid_airbnb.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", type text}, {"name", type text}, {"host_id", type text}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", type text}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", type text}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type text}, {"reviews_per_month", type text}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}, {"", Int64.Type}}),
 				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each [id] <> null and [id] <> ""),
@@ -171,9 +171,10 @@ table madrid_airbnb
 				    #"Filas filtradas4" = Table.SelectRows(#"Tipo cambiado1", each ([id] <> "HISTORICAL")),
 				    #"Personalizada agregada" = Table.AddColumn(#"Filas filtradas4", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
 				    #"Columnas reordenadas" = Table.ReorderColumns(#"Personalizada agregada",{"id", "name", "name_limpio", "host_id", "host_name", "neighbourhood_group", "neighbourhood", "latitude", "longitude", "room_type", "price", "minimum_nights", "number_of_reviews", "last_review", "reviews_per_month", "calculated_host_listings_count", "availability_365"}),
-				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas reordenadas",{{"last_review", type date}})
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas reordenadas",{{"last_review", type date}}),
+				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado2", {"latitude"})
 				in
-				    #"Tipo cambiado2"
+				    #"Errores quitados1"
 
 	annotation PBI_NavigationStepName = Navegación
 

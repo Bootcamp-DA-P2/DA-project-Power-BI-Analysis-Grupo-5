@@ -1,5 +1,0 @@
-relationship 4b0954ea-7519-4e2e-9bbc-e46d9d77a241
-	joinOnDateBehavior: datePartOnly
-	fromColumn: london_airbnb.last_review
-	toColumn: LocalDateTable_b253401e-712e-4ec7-8cb5-4d461e8fb3c1.Date
-
