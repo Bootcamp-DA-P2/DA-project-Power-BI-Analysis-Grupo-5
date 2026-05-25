@@ -1,5 +1,0 @@
-relationship 8b599cff-5cb1-47e8-a12e-f8f10f8ae9ee
-	joinOnDateBehavior: datePartOnly
-	fromColumn: NY_airbnb.last_review
-	toColumn: LocalDateTable_9cc9f8b7-9fc6-4ed5-a0c9-9cb27b0d51fb.Date
-
