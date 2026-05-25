@@ -1,0 +1,10 @@
+relationship 2e8ae6a1-118e-42c3-86c5-e3098d75787d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: madrid_airbnb.last_review
+	toColumn: LocalDateTable_e013f620-fd16-4c2e-9533-988287e4ed74.Date
+
+relationship 055fd003-e919-44a2-8344-96f5a0b8b5a7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: london_airbnb.last_review
+	toColumn: LocalDateTable_dca6a37c-ad43-4e59-bc6f-5d9e3ad64444.Date
+
