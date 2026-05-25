@@ -222,3 +222,13 @@ __marimo__/
 *.bak
 *.log
 ~*
+
+# Carpetas de caché de Power BI
+*.Cache
+
+# Archivos de usuario que no deben compartirse
+*.pbix.json
+
+# Carpetas de sistema
+.vs/
+.ipynb_checkpoints/
