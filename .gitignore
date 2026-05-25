@@ -232,3 +232,18 @@ __marimo__/
 # Carpetas de sistema
 .vs/
 .ipynb_checkpoints/
+
+Excluir configuraciones locales del usuario (vistas, layouts de ventana, etc.),
+*.user.json
+.pbi/
+
+Excluir archivos temporales y bloqueos de Power BI,
+*.tmp
+*.lock
+
+Excluir la caché de datos locales si se genera,
+**/cache.json
+
+//Ignorar DS
+
+.DS_Store
