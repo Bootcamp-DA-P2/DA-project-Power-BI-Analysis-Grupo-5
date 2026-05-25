@@ -1,0 +1,164 @@
+table london_airbnb
+	lineageTag: 28cdfeb0-66c1-458a-8d66-4d1e1d5550f3
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 417c2e3f-710f-48c1-8832-69a986d30d7e
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 80e49542-748c-4530-b9a9-4e78f39cd68c
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d75c8c2-359c-48f1-a31c-24426fe2e914
+		summarizeBy: sum
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_name
+		dataType: string
+		lineageTag: 8a6dedf7-aae9-4222-b4be-23d671d8e9b6
+		summarizeBy: none
+		sourceColumn: host_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood
+		dataType: string
+		lineageTag: c3c76720-ca71-4af2-a30f-8acd77959805
+		summarizeBy: none
+		sourceColumn: neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c3db779-600c-44ec-9b37-1522168934c7
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: int64
+		formatString: 0
+		lineageTag: db06120a-2a14-4bb5-aa05-481730d2d09b
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column room_type
+		dataType: string
+		lineageTag: 52c63924-d4c9-461b-b803-bcebc3f4d02b
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 00153172-2dd9-42f4-9c8d-38585f939e93
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-ES"}
+
+	column minimum_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: c732134c-ddd3-41d2-a5af-47374c814f40
+		summarizeBy: sum
+		sourceColumn: minimum_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_reviews
+		dataType: int64
+		formatString: 0
+		lineageTag: ec99a20b-59e3-4ec3-b012-d03b3ad60026
+		summarizeBy: sum
+		sourceColumn: number_of_reviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_review
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4f5009c4-a08f-4519-9de9-98e76240dcde
+		summarizeBy: none
+		sourceColumn: last_review
+
+		variation Variación
+			isDefault
+			relationship: 055fd003-e919-44a2-8344-96f5a0b8b5a7
+			defaultHierarchy: LocalDateTable_dca6a37c-ad43-4e59-bc6f-5d9e3ad64444.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reviews_per_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ccd8c37-e6fa-40cd-8d98-cc98385d9c2e
+		summarizeBy: sum
+		sourceColumn: reviews_per_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: int64
+		formatString: 0
+		lineageTag: b8e9a537-6cb4-4829-ac4e-c7b30b942183
+		summarizeBy: sum
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column availability_365
+		dataType: int64
+		formatString: 0
+		lineageTag: 608d1e18-a28d-4a82-91bb-f65c7db8c620
+		summarizeBy: sum
+		sourceColumn: availability_365
+
+		annotation SummarizationSetBy = Automatic
+
+	partition london_airbnb = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\london_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each true),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Filas filtradas",{"neighbourhood_group"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas",{{"price", Currency.Type}, {"last_review", type date}}),
+				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Tipo cambiado1", {"id"}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Errores quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Filas filtradas1" = Table.SelectRows(#"Filas en blanco eliminadas", each [host_id] <> null and [host_id] <> ""),
+				    #"Filas filtradas2" = Table.SelectRows(#"Filas filtradas1", each [last_review] <> null and [last_review] <> "")
+				in
+				    #"Filas filtradas2"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
