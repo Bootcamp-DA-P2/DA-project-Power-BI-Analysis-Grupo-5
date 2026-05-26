@@ -1,0 +1,20 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["tokyo_airbnb"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table tokyo_airbnb
+ref table DateTableTemplate_74fcd5aa-9cba-49d8-b349-2496ae18aa22
+ref table LocalDateTable_4c223b52-058f-42ac-9d79-1676211a83b3
+
+ref cultureInfo es-ES
+

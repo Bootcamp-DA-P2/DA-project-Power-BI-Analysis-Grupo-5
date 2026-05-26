@@ -1,0 +1,171 @@
+table sydney_airbnb
+	lineageTag: 3f1c456b-967a-463c-8731-f02601c020b6
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a19292a-4bc2-4088-aefc-8bfbd26f5e60
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f4cd1fd2-e107-47f3-98cf-be08925dac06
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4875ed24-605a-4f2a-8a13-8402e616da3a
+		summarizeBy: sum
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_name
+		dataType: string
+		lineageTag: efe16a3d-a7cf-4ad6-82cc-1ddfa055065f
+		summarizeBy: none
+		sourceColumn: host_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: ccc19f75-b25f-4b55-a49d-b402de57ebd8
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood
+		dataType: string
+		lineageTag: 14fb1a3b-ddcd-4ce7-a000-eab2b589c186
+		summarizeBy: none
+		sourceColumn: neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: int64
+		formatString: 0
+		lineageTag: e865b789-7fa9-4902-a6e2-5d9cc6d087dd
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: int64
+		formatString: 0
+		lineageTag: e95728b9-6776-4e4f-aeb9-ac8b524da838
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column room_type
+		dataType: string
+		lineageTag: 56ff2a26-7411-40bb-90e4-e177c53fd9c7
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: int64
+		formatString: 0
+		lineageTag: db06e08a-d66f-4f42-ab15-875947afa87b
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+	column minimum_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: e305596f-f72f-4bf6-94a3-cb162c3ffa7c
+		summarizeBy: sum
+		sourceColumn: minimum_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_reviews
+		dataType: int64
+		formatString: 0
+		lineageTag: a1132e6d-f99e-4360-a7f1-f1f9909b1a92
+		summarizeBy: sum
+		sourceColumn: number_of_reviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_review
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1e6ee828-7472-4581-9105-2745a218b505
+		summarizeBy: none
+		sourceColumn: last_review
+
+		variation Variación
+			isDefault
+			relationship: 3881323e-14cb-45d9-9efd-4262a9b2bcaa
+			defaultHierarchy: LocalDateTable_cc012ec8-1a39-43d5-a3fc-9e92110a3372.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reviews_per_month
+		dataType: int64
+		formatString: 0
+		lineageTag: a3b4b79e-a411-4055-9901-c19ad921e626
+		summarizeBy: sum
+		sourceColumn: reviews_per_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: int64
+		formatString: 0
+		lineageTag: bc9ca718-6527-44e2-ae0c-3cd6fd53c9e8
+		summarizeBy: sum
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column availability_365
+		dataType: int64
+		formatString: 0
+		lineageTag: c9a54d6f-61e2-4d1c-b9e9-989033c00cd5
+		summarizeBy: sum
+		sourceColumn: availability_365
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column1
+		dataType: string
+		lineageTag: 00aeab72-a1e9-4fea-968b-569d47c4816e
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sydney_airbnb = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("C:\Users\ritar\Documents\PROYECTOS\DA-project-Power-BI-Analysis-Grupo-5\Data\sydney_airbnb.csv"),[Delimiter=";", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}, {"", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
