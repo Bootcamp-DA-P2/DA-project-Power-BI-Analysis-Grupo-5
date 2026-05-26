@@ -147,6 +147,14 @@ table NY_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column city
+		dataType: string
+		lineageTag: f613ae6f-0a93-4056-b77a-680762dc8448
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
 	partition NY_airbnb = m
 		mode: import
 		source =
@@ -162,9 +170,10 @@ table NY_airbnb
 				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Filas en blanco eliminadas1",{{"last_review", type date}}),
 				    Personalizado1 = #"Tipo cambiado2",
 				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(Table.TransformColumnTypes(Personalizado1, {{"host_id", type text}}, "es-ES"),{{"id", Text.Proper, type text}, {"name", Text.Proper, type text}, {"host_id", Text.Proper, type text}, {"host_name", Text.Proper, type text}, {"neighbourhood_group", Text.Proper, type text}, {"neighbourhood", Text.Proper, type text}, {"room_type", Text.Proper, type text}}),
-				    #"Texto limpio" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"id", Text.Clean, type text}, {"name", Text.Clean, type text}, {"host_id", Text.Clean, type text}, {"host_name", Text.Clean, type text}, {"neighbourhood_group", Text.Clean, type text}, {"neighbourhood", Text.Clean, type text}, {"room_type", Text.Clean, type text}})
+				    #"Texto limpio" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"id", Text.Clean, type text}, {"name", Text.Clean, type text}, {"host_id", Text.Clean, type text}, {"host_name", Text.Clean, type text}, {"neighbourhood_group", Text.Clean, type text}, {"neighbourhood", Text.Clean, type text}, {"room_type", Text.Clean, type text}}),
+				    #"Added Custom" = Table.AddColumn(#"Texto limpio", "city", each "NY")
 				in
-				    #"Texto limpio"
+				    #"Added Custom"
 
 	annotation PBI_NavigationStepName = Navegación
 

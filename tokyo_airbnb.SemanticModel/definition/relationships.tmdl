@@ -1,5 +1,0 @@
-relationship e6898f1d-d0d4-4383-b01f-94b43a2b7b18
-	joinOnDateBehavior: datePartOnly
-	fromColumn: tokyo_airbnb.last_review
-	toColumn: LocalDateTable_4c223b52-058f-42ac-9d79-1676211a83b3.Date
-
