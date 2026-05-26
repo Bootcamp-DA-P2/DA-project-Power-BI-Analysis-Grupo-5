@@ -1,0 +1,145 @@
+table tokyo_airbnb
+	lineageTag: 45222da6-f510-4835-8948-a2af2e36acd1
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 248741d0-b507-4aee-868a-fbe34b956f53
+		summarizeBy: sum
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: e652fcbe-64f1-48bb-87c1-3e1fc380e030
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c670a404-dbcc-4c25-95c5-9df39553635b
+		summarizeBy: sum
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_name
+		dataType: string
+		lineageTag: 55134ce8-7c4d-421a-bceb-b17313f991cc
+		summarizeBy: none
+		sourceColumn: host_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: efa0f1bc-48e6-4e82-8cf4-80628e05edac
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood
+		dataType: string
+		lineageTag: 786e5393-69ee-46c1-8324-2f865b0f2514
+		summarizeBy: none
+		sourceColumn: neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c7992ba-9dff-4011-8c55-23b1b351560b
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitude
+		dataType: int64
+		formatString: 0
+		lineageTag: 725c509c-4d8d-4f37-abb5-03e7e5efb039
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column room_type
+		dataType: string
+		lineageTag: f289bc1f-5354-4c95-97ed-09fde03c1eac
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: int64
+		formatString: 0
+		lineageTag: 35324553-1e80-490a-b2ce-223555e942b5
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+	column minimum_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: 635c34e8-4887-4cd4-8d1a-1849a67a5569
+		summarizeBy: sum
+		sourceColumn: minimum_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_reviews
+		dataType: int64
+		formatString: 0
+		lineageTag: cfa77f28-e8ed-419c-b301-26fc538aa08e
+		summarizeBy: sum
+		sourceColumn: number_of_reviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_review
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d5608417-36e8-48fe-964b-19263454e5d3
+		summarizeBy: none
+		sourceColumn: last_review
+
+		variation Variación
+			isDefault
+			relationship: fd80cb00-d0ef-41bf-afcf-80b674b69721
+			defaultHierarchy: LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column reviews_per_month
+		dataType: int64
+		formatString: 0
+		lineageTag: c680f48c-b237-4d6a-973d-544d3ba7167d
+		summarizeBy: sum
+		sourceColumn: reviews_per_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tokyo_airbnb = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents("C:\Users\ritar\Documents\PROYECTOS\DA-project-Power-BI-Analysis-Grupo-5\Data\tokyo_airbnb.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

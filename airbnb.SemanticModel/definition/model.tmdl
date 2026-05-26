@@ -13,7 +13,7 @@ queryGroup 'Errores en las consultas: 25/05/2026 14:20:30'
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["Errores en madrid_airbnb","madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb"]
+annotation PBI_QueryOrder = ["Errores en madrid_airbnb","madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb","sydney_airbnb","tokyo_airbnb"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -26,6 +26,10 @@ ref table NY_airbnb
 ref table LocalDateTable_e59332f3-c2bb-43e8-bc07-8fba30d62600
 ref table milan_airbnb
 ref table LocalDateTable_3e1fe1e5-bdff-480c-ba5e-52e0409b49df
+ref table sydney_airbnb
+ref table LocalDateTable_cc012ec8-1a39-43d5-a3fc-9e92110a3372
+ref table tokyo_airbnb
+ref table LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f
 
 ref cultureInfo es-ES
 
