@@ -141,6 +141,14 @@ table london_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column city
+		dataType: string
+		lineageTag: 6d6261d7-1bb9-4527-876f-1a516862f6a3
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
 	partition london_airbnb = m
 		mode: import
 		source =
@@ -154,9 +162,10 @@ table london_airbnb
 				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Tipo cambiado1", {"id"}),
 				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Errores quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Filas filtradas1" = Table.SelectRows(#"Filas en blanco eliminadas", each [host_id] <> null and [host_id] <> ""),
-				    #"Filas filtradas2" = Table.SelectRows(#"Filas filtradas1", each [last_review] <> null and [last_review] <> "")
+				    #"Filas filtradas2" = Table.SelectRows(#"Filas filtradas1", each [last_review] <> null and [last_review] <> ""),
+				    #"Added Custom" = Table.AddColumn(#"Filas filtradas2", "city", each "London")
 				in
-				    #"Filas filtradas2"
+				    #"Added Custom"
 
 	annotation PBI_NavigationStepName = Navegación
 

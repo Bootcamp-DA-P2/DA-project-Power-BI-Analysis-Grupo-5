@@ -129,12 +129,14 @@ table madrid_airbnb
 		annotation UnderlyingDateTimeDataType = Date
 
 	column reviews_per_month
-		dataType: string
+		dataType: double
 		lineageTag: e62db97c-a7f1-46a5-836d-f52d6a51c8ee
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: reviews_per_month
 
 		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column calculated_host_listings_count
 		dataType: int64
@@ -151,6 +153,14 @@ table madrid_airbnb
 		lineageTag: a331ed80-e004-4283-9208-c232c5ac13b2
 		summarizeBy: sum
 		sourceColumn: availability_365
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 0a76f751-417b-4a8b-a1be-98a66a9aa3a5
+		summarizeBy: none
+		sourceColumn: city
 
 		annotation SummarizationSetBy = Automatic
 
@@ -172,9 +182,11 @@ table madrid_airbnb
 				    #"Personalizada agregada" = Table.AddColumn(#"Filas filtradas4", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
 				    #"Columnas reordenadas" = Table.ReorderColumns(#"Personalizada agregada",{"id", "name", "name_limpio", "host_id", "host_name", "neighbourhood_group", "neighbourhood", "latitude", "longitude", "room_type", "price", "minimum_nights", "number_of_reviews", "last_review", "reviews_per_month", "calculated_host_listings_count", "availability_365"}),
 				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas reordenadas",{{"last_review", type date}}),
-				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado2", {"latitude"})
+				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado2", {"latitude"}),
+				    #"Added Custom" = Table.AddColumn(#"Errores quitados1", "city", each "Madrid"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"reviews_per_month", type number}})
 				in
-				    #"Errores quitados1"
+				    #"Changed Type"
 
 	annotation PBI_NavigationStepName = Navegación
 

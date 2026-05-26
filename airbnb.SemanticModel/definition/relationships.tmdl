@@ -18,11 +18,6 @@ relationship 4ae7a358-5006-4c9c-af4b-5c67cb6374e9
 	fromColumn: milan_airbnb.last_review
 	toColumn: LocalDateTable_3e1fe1e5-bdff-480c-ba5e-52e0409b49df.Date
 
-relationship 3881323e-14cb-45d9-9efd-4262a9b2bcaa
-	joinOnDateBehavior: datePartOnly
-	fromColumn: sydney_airbnb.last_review
-	toColumn: LocalDateTable_cc012ec8-1a39-43d5-a3fc-9e92110a3372.Date
-
 relationship fd80cb00-d0ef-41bf-afcf-80b674b69721
 	joinOnDateBehavior: datePartOnly
 	fromColumn: tokyo_airbnb.last_review
