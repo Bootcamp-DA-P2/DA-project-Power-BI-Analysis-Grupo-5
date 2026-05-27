@@ -1,0 +1,40 @@
+table dim_host
+	lineageTag: beb58c39-82e8-457f-bb65-e4e6da2d94d8
+
+	column host_id
+		dataType: string
+		lineageTag: 6fa62d7a-3095-4f34-8a43-90535111f481
+		summarizeBy: none
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_name
+		dataType: string
+		lineageTag: 44c97f4a-c859-42ae-b3e9-ba50a4968cee
+		summarizeBy: none
+		sourceColumn: host_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: string
+		lineageTag: 3299cf7e-77ee-43b4-a370-167423bb5ce0
+		summarizeBy: none
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_host = m
+		mode: import
+		source =
+				let
+				    Origen = fact_listings,
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"id", "name", "neighbourhood_group", "neighbourhood", "latitude", "longitude", "room_type", "price", "minimum_nights", "number_of_reviews", "last_review", "reviews_per_month", "availability_365", "city", "name_limpio"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

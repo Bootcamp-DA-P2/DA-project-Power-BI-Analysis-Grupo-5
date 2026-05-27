@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb","tokyo_airbnb","sydney_airbnb"]
+annotation PBI_QueryOrder = ["madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb","tokyo_airbnb","sydney_airbnb","fact_listings","dim_roomType","dim_host","dim_city","dim_date"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -25,6 +25,13 @@ ref table tokyo_airbnb
 ref table LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f
 ref table sydney_airbnb
 ref table LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb
+ref table fact_listings
+ref table LocalDateTable_707d6027-5e66-47fb-82c0-21055add9ca0
+ref table dim_roomType
+ref table dim_host
+ref table dim_city
+ref table dim_date
+ref table LocalDateTable_e3f42175-5317-4661-839a-f043f35a3cc7
 
 ref cultureInfo es-ES
 

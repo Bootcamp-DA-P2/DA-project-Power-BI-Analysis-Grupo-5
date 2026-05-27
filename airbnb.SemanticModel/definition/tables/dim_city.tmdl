@@ -1,0 +1,72 @@
+table dim_city
+	lineageTag: 15cb6cfb-20b0-4b22-8861-a494fd39df96
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: 266df7ed-a04f-41a8-9176-c84952adebea
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood
+		dataType: string
+		lineageTag: afd01aa3-2889-48a4-8899-fa7467513795
+		summarizeBy: none
+		sourceColumn: neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: bebfb07c-4a7d-467e-93c1-eaaaca88c496
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 7a9a0432-8522-41a2-a765-fbbf5f648bfa
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column city
+		dataType: string
+		lineageTag: c89980a6-2053-46b7-87d3-ac62ed165b09
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 531b87f6-2739-4b8c-b156-732e51687de0
+		summarizeBy: sum
+		sourceColumn: city_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_city = m
+		mode: import
+		source =
+				let
+				    Origen = fact_listings,
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"id", "name", "host_id", "host_name", "room_type", "price", "minimum_nights", "number_of_reviews", "last_review", "reviews_per_month", "calculated_host_listings_count", "availability_365", "name_limpio"}),
+				    #"Duplicados quitados" = Table.Distinct(#"Columnas quitadas", {"neighbourhood"}),
+				    #"Índice agregado" = Table.AddIndexColumn(#"Duplicados quitados", "Índice", 1, 1, Int64.Type),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Índice agregado",{{"Índice", "city_key"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

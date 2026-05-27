@@ -1,0 +1,74 @@
+table dim_date
+	lineageTag: df6bb63d-d618-412e-bfce-b2ad0804d30d
+
+	column last_review
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1b7a2fd2-550b-4358-8fcd-f03dee3ac9ff
+		summarizeBy: none
+		sourceColumn: last_review
+
+		variation Variación
+			isDefault
+			relationship: b3a884fe-2d51-4e2b-bcf0-2acfcaea2ec6
+			defaultHierarchy: LocalDateTable_e3f42175-5317-4661-839a-f043f35a3cc7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: d22c8645-bcbf-4955-aec6-2fab8170ea58
+		summarizeBy: sum
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: string
+		lineageTag: cae0d322-c3e7-467e-bdee-b7e6ce20130e
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Num_mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 757ce79b-39f8-4d5b-b2f0-0ed9249aa212
+		summarizeBy: sum
+		sourceColumn: Num_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_Key
+		dataType: int64
+		formatString: 0
+		lineageTag: ab22a738-a99a-45d8-922b-055ff6cc7078
+		summarizeBy: count
+		sourceColumn: Date_Key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Origen = fact_listings,
+				    #"Otras columnas quitadas" = Table.SelectColumns(Origen,{"last_review"}),
+				    #"Filas filtradas" = Table.SelectRows(#"Otras columnas quitadas", each ([last_review] <> null)),
+				    #"Año insertado" = Table.AddColumn(#"Filas filtradas", "Año", each Date.Year([last_review]), Int64.Type),
+				    #"Nombre del mes insertado" = Table.AddColumn(#"Año insertado", "Mes", each Date.MonthName([last_review]), type text),
+				    #"Mes insertado" = Table.AddColumn(#"Nombre del mes insertado", "Num_mes", each Date.Month([last_review]), Int64.Type),
+				    #"Duplicados quitados" = Table.Distinct(#"Mes insertado", {"last_review"}),
+				    #"Índice agregado" = Table.AddIndexColumn(#"Duplicados quitados", "Índice", 1, 1, Int64.Type),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Índice agregado",{{"Índice", "Date_Key"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

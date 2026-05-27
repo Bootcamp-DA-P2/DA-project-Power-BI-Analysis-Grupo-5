@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 29.073860530597724,
-        "y": 0
+        "x": 0,
+        "y": 20.22529500284714
       },
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 0
+            "x": 28.441820673937656,
+            "y": 639.65934678676342
           },
           "nodeIndex": "london_airbnb",
           "nodeLineageTag": "28cdfeb0-66c1-458a-8d66-4d1e1d5550f3",
@@ -23,8 +23,8 @@
         },
         {
           "location": {
-            "x": 364,
-            "y": 0
+            "x": 95.382804746144529,
+            "y": 25
           },
           "nodeIndex": "madrid_airbnb",
           "nodeLineageTag": "b1c64bac-333d-4051-a6f1-35c0cab27666",
@@ -36,8 +36,8 @@
         },
         {
           "location": {
-            "x": 911,
-            "y": 31
+            "x": 620.26138866641531,
+            "y": 836.569967384733
           },
           "nodeIndex": "milan_airbnb",
           "nodeLineageTag": "7eb91f14-6100-4cd2-a644-ce5e7369c16b",
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 0,
-            "y": 262.65261615569733
+            "y": 436.18212411959388
           },
           "nodeIndex": "NY_airbnb",
           "nodeLineageTag": "32ecd945-f0b3-4f52-ba1f-db9af1d396e4",
@@ -62,10 +62,11 @@
         },
         {
           "location": {
-            "x": 1195,
-            "y": 98.373526492666173
+            "x": 1518.9207354531784,
+            "y": 105.99241385859318
           },
           "nodeIndex": "sydney_airbnb",
+          "nodeLineageTag": "6913e9b8-7351-48eb-ade3-435e315ac586",
           "size": {
             "height": 300,
             "width": 234
@@ -75,7 +76,7 @@
         {
           "location": {
             "x": 644.34401852876965,
-            "y": 20.770666919893529
+            "y": 45.770666919893529
           },
           "nodeIndex": "tokyo_airbnb",
           "nodeLineageTag": "45222da6-f510-4835-8948-a2af2e36acd1",
@@ -84,10 +85,75 @@
             "width": 234
           },
           "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 490.4553386619,
+            "y": 431.36845961075659
+          },
+          "nodeIndex": "dim_city",
+          "nodeLineageTag": "15cb6cfb-20b0-4b22-8861-a494fd39df96",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2509.9696365257623,
+            "y": 510.74957224482966
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "df6bb63d-d618-412e-bfce-b2ad0804d30d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2331,
+            "y": 171.32630807784867
+          },
+          "nodeIndex": "dim_host",
+          "nodeLineageTag": "beb58c39-82e8-457f-bb65-e4e6da2d94d8",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2615,
+            "y": 183.32630807784867
+          },
+          "nodeIndex": "dim_roomType",
+          "nodeLineageTag": "09b35176-ccf2-4e83-a3b5-f2cb273b944d",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1152.9359266446024,
+            "y": 108.95025287138021
+          },
+          "nodeIndex": "fact_listings",
+          "nodeLineageTag": "37206f3e-c3e0-4819-9d02-f57268633441",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 63.287087723234634,
+      "zoomValue": 63.287087723234649,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
