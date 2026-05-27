@@ -25,6 +25,6 @@ relationship fd80cb00-d0ef-41bf-afcf-80b674b69721
 
 relationship c6ed420f-43d3-4a46-ab4c-01872f228558
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'sydney_airbnb (2)'.last_review
+	fromColumn: sydney_airbnb.last_review
 	toColumn: LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb.Date
 

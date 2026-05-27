@@ -62,13 +62,12 @@
         },
         {
           "location": {
-            "x": 348.475549463708,
-            "y": 264.24452427153
+            "x": 1195,
+            "y": 98.373526492666173
           },
           "nodeIndex": "sydney_airbnb",
-          "nodeLineageTag": "3f1c456b-967a-463c-8731-f02601c020b6",
           "size": {
-            "height": 232.50252871380235,
+            "height": 300,
             "width": 234
           },
           "zIndex": 6
@@ -85,19 +84,6 @@
             "width": 234
           },
           "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 1195,
-            "y": 98.373526492666173
-          },
-          "nodeIndex": "sydney_airbnb (2)",
-          "nodeLineageTag": "6913e9b8-7351-48eb-ade3-435e315ac586",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 0
         }
       ],
       "name": "Todas las tablas",

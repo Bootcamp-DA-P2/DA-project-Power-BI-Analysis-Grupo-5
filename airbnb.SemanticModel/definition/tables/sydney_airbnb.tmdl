@@ -1,33 +1,35 @@
 table sydney_airbnb
-	lineageTag: 3f1c456b-967a-463c-8731-f02601c020b6
+	lineageTag: 6913e9b8-7351-48eb-ade3-435e315ac586
 
 	column id
-		dataType: string
-		lineageTag: 8a19292a-4bc2-4088-aefc-8bfbd26f5e60
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 5facc673-4fa2-47d6-81d5-bcefe6ca233c
+		summarizeBy: sum
 		sourceColumn: id
 
 		annotation SummarizationSetBy = Automatic
 
 	column name
 		dataType: string
-		lineageTag: f4cd1fd2-e107-47f3-98cf-be08925dac06
+		lineageTag: c9328259-2019-41d3-974a-336b3ecb1a9c
 		summarizeBy: none
 		sourceColumn: name
 
 		annotation SummarizationSetBy = Automatic
 
 	column host_id
-		dataType: string
-		lineageTag: 4875ed24-605a-4f2a-8a13-8402e616da3a
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: a9ad21f3-cbae-4f04-b9bc-78f50c6b5091
+		summarizeBy: sum
 		sourceColumn: host_id
 
 		annotation SummarizationSetBy = Automatic
 
 	column host_name
 		dataType: string
-		lineageTag: efe16a3d-a7cf-4ad6-82cc-1ddfa055065f
+		lineageTag: 211d60e8-bed1-43e1-abc4-d95b07efa652
 		summarizeBy: none
 		sourceColumn: host_name
 
@@ -35,7 +37,7 @@ table sydney_airbnb
 
 	column neighbourhood_group
 		dataType: string
-		lineageTag: ccc19f75-b25f-4b55-a49d-b402de57ebd8
+		lineageTag: faf17444-cb40-46d1-836b-19c851f2d944
 		summarizeBy: none
 		sourceColumn: neighbourhood_group
 
@@ -43,7 +45,7 @@ table sydney_airbnb
 
 	column neighbourhood
 		dataType: string
-		lineageTag: 14fb1a3b-ddcd-4ce7-a000-eab2b589c186
+		lineageTag: 31f6e3f6-1a8d-4378-9a6a-99692ff45598
 		summarizeBy: none
 		sourceColumn: neighbourhood
 
@@ -51,97 +53,113 @@ table sydney_airbnb
 
 	column latitude
 		dataType: double
-		formatString: 0
-		lineageTag: e865b789-7fa9-4902-a6e2-5d9cc6d087dd
+		lineageTag: 2cf0adfa-8703-4137-b378-c072dc955cba
 		summarizeBy: sum
 		sourceColumn: latitude
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column longitude
 		dataType: double
-		formatString: 0
-		lineageTag: e95728b9-6776-4e4f-aeb9-ac8b524da838
+		lineageTag: 0c8bc62a-41c5-4d9f-ab71-2f52783d425e
 		summarizeBy: sum
 		sourceColumn: longitude
 
 		annotation SummarizationSetBy = Automatic
 
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column room_type
 		dataType: string
-		lineageTag: 56ff2a26-7411-40bb-90e4-e177c53fd9c7
+		lineageTag: 3f259e63-3d1e-4964-bc7a-efcf52872d39
 		summarizeBy: none
 		sourceColumn: room_type
 
 		annotation SummarizationSetBy = Automatic
 
 	column price
-		dataType: string
-		lineageTag: db06e08a-d66f-4f42-ab15-875947afa87b
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 9527dc4f-0d10-408b-bb7c-9da66cfb39b7
+		summarizeBy: sum
 		sourceColumn: price
 
 		annotation SummarizationSetBy = Automatic
 
 	column minimum_nights
-		dataType: string
-		lineageTag: e305596f-f72f-4bf6-94a3-cb162c3ffa7c
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: c8759991-0534-4204-bd01-b3be442c7069
+		summarizeBy: sum
 		sourceColumn: minimum_nights
 
 		annotation SummarizationSetBy = Automatic
 
 	column number_of_reviews
-		dataType: string
-		lineageTag: a1132e6d-f99e-4360-a7f1-f1f9909b1a92
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 855a7637-594a-413a-914b-049705d74890
+		summarizeBy: sum
 		sourceColumn: number_of_reviews
 
 		annotation SummarizationSetBy = Automatic
 
 	column last_review
-		dataType: string
-		lineageTag: 1e6ee828-7472-4581-9105-2745a218b505
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5f41d4a4-84a8-4f45-99f1-9798f3c963ef
 		summarizeBy: none
 		sourceColumn: last_review
 
+		variation Variación
+			isDefault
+			relationship: c6ed420f-43d3-4a46-ab4c-01872f228558
+			defaultHierarchy: LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb.'Jerarquía de fechas'
+
 		annotation SummarizationSetBy = Automatic
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column reviews_per_month
-		dataType: string
-		lineageTag: a3b4b79e-a411-4055-9901-c19ad921e626
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a1a100e-b655-42f2-8ffb-dc6583680280
+		summarizeBy: sum
 		sourceColumn: reviews_per_month
 
 		annotation SummarizationSetBy = Automatic
 
 	column calculated_host_listings_count
-		dataType: string
-		lineageTag: bc9ca718-6527-44e2-ae0c-3cd6fd53c9e8
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: d7ea8dd9-8e74-4db2-9945-80ee5e623949
+		summarizeBy: sum
 		sourceColumn: calculated_host_listings_count
 
 		annotation SummarizationSetBy = Automatic
 
 	column availability_365
-		dataType: string
-		lineageTag: c9a54d6f-61e2-4d1c-b9e9-989033c00cd5
-		summarizeBy: none
+		dataType: int64
+		formatString: 0
+		lineageTag: 68e7b528-548a-4d7e-b4d8-3075452fb201
+		summarizeBy: sum
 		sourceColumn: availability_365
 
 		annotation SummarizationSetBy = Automatic
 
-	column Column1
+	column ciudad
 		dataType: string
-		lineageTag: 00aeab72-a1e9-4fea-968b-569d47c4816e
+		lineageTag: 62dbaf51-cb47-49b4-95fb-9e0c898b445d
 		summarizeBy: none
-		sourceColumn: Column1
+		sourceColumn: ciudad
 
 		annotation SummarizationSetBy = Automatic
 
 	column name_limpio
 		dataType: string
-		lineageTag: eef1b928-2001-4742-bc12-1bd78832306f
+		lineageTag: 09b2a212-6f35-4fea-ae01-a8003feed16d
 		summarizeBy: none
 		sourceColumn: name_limpio
 
@@ -149,42 +167,65 @@ table sydney_airbnb
 
 	partition sydney_airbnb = m
 		mode: import
-		source =
+		source = ```
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\sydney_airbnb.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    // NOTA: Reemplaza esta línea de "Origen" por la tuya original si la ruta de tu archivo es diferente
+				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\sydney_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    
+				    // 1. Promover los encabezados del CSV
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
-				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}, {"", type text}}),
-				    #"Added Custom" = Table.AddColumn(#"Tipo cambiado", "city", each "Sydney"),
-				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"neighbourhood_group"}),
-				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each [name] <> null and [name] <> ""),
-				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [host_id] <> null and [host_id] <> ""),
-				    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [last_review] <> null and [last_review] <> ""),
-				    #"Removed Columns1" = Table.RemoveColumns(#"Filtered Rows2",{""}),
-				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Removed Columns1", {"id"}),
-				    #"Removed Errors1" = Table.RemoveRowsWithErrors(#"Removed Errors", {"name"}),
-				    #"Removed Errors2" = Table.RemoveRowsWithErrors(#"Removed Errors1", {"host_id"}),
-				    #"Removed Errors3" = Table.RemoveRowsWithErrors(#"Removed Errors2", {"host_name"}),
-				    #"Removed Errors4" = Table.RemoveRowsWithErrors(#"Removed Errors3", {"neighbourhood"}),
-				    #"Removed Errors5" = Table.RemoveRowsWithErrors(#"Removed Errors4", {"latitude"}),
-				    #"Removed Errors6" = Table.RemoveRowsWithErrors(#"Removed Errors5", {"longitude"}),
-				    #"Removed Errors7" = Table.RemoveRowsWithErrors(#"Removed Errors6", {"room_type"}),
-				    #"Removed Errors8" = Table.RemoveRowsWithErrors(#"Removed Errors7", {"price"}),
-				    #"Removed Errors9" = Table.RemoveRowsWithErrors(#"Removed Errors8", {"minimum_nights"}),
-				    #"Removed Errors10" = Table.RemoveRowsWithErrors(#"Removed Errors9", {"number_of_reviews"}),
-				    #"Removed Errors11" = Table.RemoveRowsWithErrors(#"Removed Errors10", {"last_review"}),
-				    #"Removed Errors12" = Table.RemoveRowsWithErrors(#"Removed Errors11", {"reviews_per_month"}),
-				    #"Removed Errors13" = Table.RemoveRowsWithErrors(#"Removed Errors12", {"availability_365"}),
-				    #"Removed Errors14" = Table.RemoveRowsWithErrors(#"Removed Errors13", {"calculated_host_listings_count"}),
-				    #"Removed Errors15" = Table.TransformColumns(
-				    #"Encabezados promovidos",
-				    {
-				        {"latitude", each try Number.From(Text.Replace(Text.Trim(Text.From()), ",", ".")) otherwise null, type number},
-				        {"longitude", each try Number.From(Text.Replace(Text.Trim(Text.From()), ",", ".")) otherwise null, type number}
-				    }
-				),
-				    #"Personalizada agregada" = Table.AddColumn(#"Removed Errors15", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
+				
+				    // 2. Convertir Latitud usando región de EE.UU. (acepta puntos como decimales)
+				    #"Tipo cambiado con configuración regional" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"latitude", type number}}, "en-US"),
+				
+				    // 3. Si la latitud dio error (como "Waverley"), se reemplaza por un 0
+				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional", {{"latitude", 0}}),
+				
+				    // 4. Convertir Longitud usando región de EE.UU.
+				    #"Tipo cambiado con configuración regional1" = Table.TransformColumnTypes(#"Errores reemplazados", {{"longitude", type number}}, "en-US"),
+				
+				    // 5. Si la longitud dio error, se reemplaza por un 0
+				    #"Errores reemplazados1" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional1", {{"longitude", 0}}),
+				
+				    // 6. Limpieza de textos en un solo paso eficiente (Poner en mayúscula cada palabra, quitar espacios y caracteres invisibles)
+				    #"Textos limpios" = Table.TransformColumns(#"Errores reemplazados1", {
+				        {"name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
+				        {"host_name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
+				        {"neighbourhood", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
+				        {"room_type", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text}
+				    }),
+				
+				    // 7. Convertir columnas numéricas de manera segura (si encuentra texto pone NULL) y limpiar el signo $ y comas del precio
+				    #"room_type" = Table.TransformColumns(#"Textos limpios", {
+				        {"availability_365", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
+				        {"calculated_host_listings_count", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
+				        {"number_of_reviews", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
+				        {"minimum_nights", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
+				        {"price", each try Int64.From(Text.Replace(Text.Replace(Text.Replace(Text.Trim(Text.From(_)), "$", ""), ",", ""), ".", "")) otherwise null, Int64.Type},
+				        {"host_id", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
+				        {"id", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type}
+				    }),
+				
+				    // 8. Convertir reseñas por mes usando región de EE.UU.
+				    #"Tipo_EEUU_reviews_per_month" = Table.TransformColumnTypes(#"room_type", {{"reviews_per_month", type number}}, "en-US"),
+				
+				    // 9. Si la reseña da error, se reemplaza por 0
+				    #"Errores_reviews_per_month" = Table.ReplaceErrorValues(#"Tipo_EEUU_reviews_per_month", {{"reviews_per_month", 0}}),
+				
+				    // 10. Convertir las reseñas finales a número entero
+				    #"tipo-entero_reviews_per_month" = Table.TransformColumnTypes(#"Errores_reviews_per_month", {{"reviews_per_month", Int64.Type}}),
+				
+				    // 11. Convertir de manera segura la columna de fechas (si falla pone NULL)
+				    #"Tipo cambiado" = Table.TransformColumns(#"tipo-entero_reviews_per_month", {
+				        {"last_review", each try Date.From(_) otherwise null, type date}
+				    }),
+				
+				    // 12. Agregar la columna final identificando que pertenece a la ciudad de sydney
+				    #"Columna ciudad agregada" = Table.AddColumn(#"Tipo cambiado", "ciudad", each "sydney", type text),
+				    Personalizado1 = Table.AddColumn(#"Columna ciudad agregada", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
 				in
-				    #"Personalizada agregada"
+				    Personalizado1
+				```
 
 	annotation PBI_NavigationStepName = Navegación
 

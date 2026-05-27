@@ -110,7 +110,7 @@ table LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb
 
 	partition LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb = calculated
 		mode: import
-		source = Calendar(Date(Year(MIN('sydney_airbnb (2)'[last_review])), 1, 1), Date(Year(MAX('sydney_airbnb (2)'[last_review])), 12, 31))
+		source = Calendar(Date(Year(MIN('sydney_airbnb'[last_review])), 1, 1), Date(Year(MAX('sydney_airbnb'[last_review])), 12, 31))
 
 	annotation __PBI_LocalDateTable = true
 
