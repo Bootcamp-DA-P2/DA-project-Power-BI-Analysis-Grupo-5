@@ -4,7 +4,7 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 706.62125292083931,
+        "x": 999.88798751541924,
         "y": 204.78111849652308
       },
       "nodes": [
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 0,
-            "y": 378
+            "y": 262.65261615569733
           },
           "nodeIndex": "NY_airbnb",
           "nodeLineageTag": "32ecd945-f0b3-4f52-ba1f-db9af1d396e4",
@@ -62,21 +62,21 @@
         },
         {
           "location": {
-            "x": 418,
-            "y": 506
+            "x": 348.475549463708,
+            "y": 264.24452427153
           },
           "nodeIndex": "sydney_airbnb",
           "nodeLineageTag": "3f1c456b-967a-463c-8731-f02601c020b6",
           "size": {
-            "height": 193,
+            "height": 232.50252871380235,
             "width": 234
           },
           "zIndex": 6
         },
         {
           "location": {
-            "x": 894,
-            "y": 479
+            "x": 644.34401852876965,
+            "y": 20.770666919893529
           },
           "nodeIndex": "tokyo_airbnb",
           "nodeLineageTag": "45222da6-f510-4835-8948-a2af2e36acd1",
@@ -88,14 +88,14 @@
         },
         {
           "location": {
-            "x": 1734.6719233695578,
-            "y": 494.22227394564857
+            "x": 1696.7494958043078,
+            "y": 470.52075671736714
           },
           "nodeIndex": "Table_Fact",
           "nodeLineageTag": "eaf395a6-c099-44b4-bd54-e74cb20549cc",
           "size": {
-            "height": 554.59173698709981,
-            "width": 234
+            "height": 578.29325421538113,
+            "width": 305.10455168484395
           },
           "zIndex": 10
         },

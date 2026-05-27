@@ -155,11 +155,19 @@ table NY_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column name_limpio
+		dataType: string
+		lineageTag: 44580660-b6f3-4e00-95ef-4e7aeea1cf57
+		summarizeBy: none
+		sourceColumn: name_limpio
+
+		annotation SummarizationSetBy = Automatic
+
 	partition NY_airbnb = m
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\NY_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\NY_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}}),
 				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Tipo cambiado"),
@@ -171,9 +179,10 @@ table NY_airbnb
 				    Personalizado1 = #"Tipo cambiado2",
 				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(Table.TransformColumnTypes(Personalizado1, {{"host_id", type text}}, "es-ES"),{{"id", Text.Proper, type text}, {"name", Text.Proper, type text}, {"host_id", Text.Proper, type text}, {"host_name", Text.Proper, type text}, {"neighbourhood_group", Text.Proper, type text}, {"neighbourhood", Text.Proper, type text}, {"room_type", Text.Proper, type text}}),
 				    #"Texto limpio" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"id", Text.Clean, type text}, {"name", Text.Clean, type text}, {"host_id", Text.Clean, type text}, {"host_name", Text.Clean, type text}, {"neighbourhood_group", Text.Clean, type text}, {"neighbourhood", Text.Clean, type text}, {"room_type", Text.Clean, type text}}),
-				    #"Added Custom" = Table.AddColumn(#"Texto limpio", "city", each "NY")
+				    #"Added Custom" = Table.AddColumn(#"Texto limpio", "city", each "NY"),
+				    #"Personalizada agregada" = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
 				in
-				    #"Added Custom"
+				    #"Personalizada agregada"
 
 	annotation PBI_NavigationStepName = Navegación
 
