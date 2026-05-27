@@ -157,37 +157,29 @@ table sydney_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
-	column name_limpio
-		dataType: string
-		lineageTag: 09b2a212-6f35-4fea-ae01-a8003feed16d
-		summarizeBy: none
-		sourceColumn: name_limpio
-
-		annotation SummarizationSetBy = Automatic
-
 	partition sydney_airbnb = m
 		mode: import
 		source = ```
 				let
-				    // NOTA: Reemplaza esta línea de "Origen" por la tuya original si la ruta de tu archivo es diferente
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\sydney_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    // 1. Cargamos el archivo utilizando QuoteStyle.Csv para que asimile perfectamente las comas internas de los nombres
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\sydney_airbnb.csv"), [Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),
 				    
-				    // 1. Promover los encabezados del CSV
+				    // 2. Subimos la primera fila como los títulos de las columnas
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				
-				    // 2. Convertir Latitud usando región de EE.UU. (acepta puntos como decimales)
+				    // 3. Convertir Latitud usando región de EE.UU. (acepta puntos como decimales)
 				    #"Tipo cambiado con configuración regional" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"latitude", type number}}, "en-US"),
 				
-				    // 3. Si la latitud dio error (como "Waverley"), se reemplaza por un 0
+				    // 4. Si la latitud dio error, se reemplaza por un 0
 				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional", {{"latitude", 0}}),
 				
-				    // 4. Convertir Longitud usando región de EE.UU.
+				    // 5. Convertir Longitud usando región de EE.UU.
 				    #"Tipo cambiado con configuración regional1" = Table.TransformColumnTypes(#"Errores reemplazados", {{"longitude", type number}}, "en-US"),
 				
-				    // 5. Si la longitud dio error, se reemplaza por un 0
+				    // 6. Si la longitud dio error, se reemplaza por un 0
 				    #"Errores reemplazados1" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional1", {{"longitude", 0}}),
 				
-				    // 6. Limpieza de textos en un solo paso eficiente (Poner en mayúscula cada palabra, quitar espacios y caracteres invisibles)
+				    // 7. Limpieza de textos en un solo paso eficiente (Poner en mayúscula cada palabra, quitar espacios y caracteres invisibles)
 				    #"Textos limpios" = Table.TransformColumns(#"Errores reemplazados1", {
 				        {"name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
 				        {"host_name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
@@ -195,7 +187,7 @@ table sydney_airbnb
 				        {"room_type", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text}
 				    }),
 				
-				    // 7. Convertir columnas numéricas de manera segura (si encuentra texto pone NULL) y limpiar el signo $ y comas del precio
+				    // 8. Convertir columnas numéricas de manera segura (si encuentra texto pone NULL) y limpiar el signo $ y comas del precio
 				    #"room_type" = Table.TransformColumns(#"Textos limpios", {
 				        {"availability_365", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
 				        {"calculated_host_listings_count", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
@@ -206,25 +198,27 @@ table sydney_airbnb
 				        {"id", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type}
 				    }),
 				
-				    // 8. Convertir reseñas por mes usando región de EE.UU.
+				    // 9. Convertir reseñas por mes usando región de EE.UU.
 				    #"Tipo_EEUU_reviews_per_month" = Table.TransformColumnTypes(#"room_type", {{"reviews_per_month", type number}}, "en-US"),
 				
-				    // 9. Si la reseña da error, se reemplaza por 0
+				    // 10. Si la reseña da error, se reemplaza por 0
 				    #"Errores_reviews_per_month" = Table.ReplaceErrorValues(#"Tipo_EEUU_reviews_per_month", {{"reviews_per_month", 0}}),
 				
-				    // 10. Convertir las reseñas finales a número entero
+				    // 11. Convertir las reseñas finales a número entero
 				    #"tipo-entero_reviews_per_month" = Table.TransformColumnTypes(#"Errores_reviews_per_month", {{"reviews_per_month", Int64.Type}}),
 				
-				    // 11. Convertir de manera segura la columna de fechas (si falla pone NULL)
+				    // 12. Convertir de manera segura la columna de fechas (si falla pone NULL)
 				    #"Tipo cambiado" = Table.TransformColumns(#"tipo-entero_reviews_per_month", {
 				        {"last_review", each try Date.From(_) otherwise null, type date}
 				    }),
 				
-				    // 12. Agregar la columna final identificando que pertenece a la ciudad de sydney
+				    // 13. Agregar la columna final identificando que pertenece a la ciudad de sydney
 				    #"Columna ciudad agregada" = Table.AddColumn(#"Tipo cambiado", "ciudad", each "sydney", type text),
-				    Personalizado1 = Table.AddColumn(#"Columna ciudad agregada", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
+				    #"Filas filtradas" = Table.SelectRows(#"Columna ciudad agregada", each true),
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Filas filtradas",{{"ciudad", Text.Proper, type text}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Poner En Mayúsculas Cada Palabra","",null,Replacer.ReplaceValue,{"neighbourhood_group"})
 				in
-				    Personalizado1
+				    #"Valor reemplazado"
 				```
 
 	annotation PBI_NavigationStepName = Navegación

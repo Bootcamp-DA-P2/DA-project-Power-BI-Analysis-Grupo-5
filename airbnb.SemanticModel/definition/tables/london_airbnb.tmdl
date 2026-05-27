@@ -157,11 +157,19 @@ table london_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column neighbourhood_group
+		dataType: string
+		lineageTag: cbd4fdb3-3e25-4ffc-adf0-fdd94f7ef592
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
 	partition london_airbnb = m
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\london_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\london_airbnb.csv"),[Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}}),
 				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each true),
@@ -172,9 +180,10 @@ table london_airbnb
 				    #"Filas filtradas1" = Table.SelectRows(#"Filas en blanco eliminadas", each [host_id] <> null and [host_id] <> ""),
 				    #"Filas filtradas2" = Table.SelectRows(#"Filas filtradas1", each [last_review] <> null and [last_review] <> ""),
 				    #"Added Custom" = Table.AddColumn(#"Filas filtradas2", "city", each "London"),
-				    #"Personalizada agregada" = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
+				    #"Personalizada agregada" = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "neighbourhood_group", each null)
 				in
-				    #"Personalizada agregada"
+				    #"Personalizada agregada1"
 
 	annotation PBI_NavigationStepName = Navegación
 

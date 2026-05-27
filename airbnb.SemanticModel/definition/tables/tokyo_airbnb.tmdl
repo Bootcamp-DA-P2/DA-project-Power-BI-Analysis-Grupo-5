@@ -137,11 +137,36 @@ table tokyo_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column availability_365
+		dataType: int64
+		formatString: 0
+		lineageTag: caab1253-de3d-4921-86ce-5c3d1a14e61f
+		summarizeBy: sum
+		sourceColumn: availability_365
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: 07043a08-c37a-4caf-9e1e-23710325cc20
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: string
+		lineageTag: c041660d-e31a-4601-975a-11bad17c3962
+		summarizeBy: none
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
 	partition tokyo_airbnb = m
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\tokyo_airbnb.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\tokyo_airbnb.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}}),
 				    #"Added Custom" = Table.AddColumn(#"Tipo cambiado", "city", each "Tokyo"),
@@ -150,9 +175,13 @@ table tokyo_airbnb
 				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [host_name] <> null and [host_name] <> ""),
 				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows1",{"neighbourhood_group"}),
 				    #"Filtered Rows2" = Table.SelectRows(#"Removed Columns", each [last_review] <> null and [last_review] <> ""),
-				    #"Personalizada agregada" = Table.AddColumn(#"Filtered Rows2", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
+				    #"Personalizada agregada" = Table.AddColumn(#"Filtered Rows2", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "availability_365", each 0),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"availability_365", Int64.Type}}),
+				    #"Personalizada agregada2" = Table.AddColumn(#"Tipo cambiado1", "neighbourhood_group", each null),
+				    #"Personalizada agregada3" = Table.AddColumn(#"Personalizada agregada2", "calculated_host_listings_count", each null)
 				in
-				    #"Personalizada agregada"
+				    #"Personalizada agregada3"
 
 	annotation PBI_NavigationStepName = Navegación
 
