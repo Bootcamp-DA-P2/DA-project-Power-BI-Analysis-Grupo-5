@@ -149,11 +149,19 @@ table sydney_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
-	column ciudad
+	column city
 		dataType: string
 		lineageTag: 62dbaf51-cb47-49b4-95fb-9e0c898b445d
 		summarizeBy: none
-		sourceColumn: ciudad
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column name_limpio
+		dataType: string
+		lineageTag: f2b48c70-95de-48ee-9cd7-342c841cd97c
+		summarizeBy: none
+		sourceColumn: name_limpio
 
 		annotation SummarizationSetBy = Automatic
 
@@ -214,11 +222,19 @@ table sydney_airbnb
 				
 				    // 13. Agregar la columna final identificando que pertenece a la ciudad de sydney
 				    #"Columna ciudad agregada" = Table.AddColumn(#"Tipo cambiado", "ciudad", each "sydney", type text),
+				    
 				    #"Filas filtradas" = Table.SelectRows(#"Columna ciudad agregada", each true),
+				    
 				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Filas filtradas",{{"ciudad", Text.Proper, type text}}),
-				    #"Valor reemplazado" = Table.ReplaceValue(#"Poner En Mayúsculas Cada Palabra","",null,Replacer.ReplaceValue,{"neighbourhood_group"})
+				    
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Poner En Mayúsculas Cada Palabra","",null,Replacer.ReplaceValue,{"neighbourhood_group"}),
+				    
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Valor reemplazado",{{"ciudad", "city"}}),
+				    
+				    // CORREGIDO: Ahora sí se apoya en #"Columnas con nombre cambiado" y se le quitó la coma final
+				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"}))
 				in
-				    #"Valor reemplazado"
+				    #"Personalizada agregada"
 				```
 
 	annotation PBI_NavigationStepName = Navegación
