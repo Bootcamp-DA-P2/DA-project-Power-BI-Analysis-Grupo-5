@@ -141,7 +141,7 @@ table tokyo_airbnb
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\tokyo_airbnb.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\tokyo_airbnb.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", Int64.Type}, {"name", type text}, {"host_id", Int64.Type}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", Int64.Type}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", Int64.Type}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type date}, {"reviews_per_month", Int64.Type}}),
 				    #"Added Custom" = Table.AddColumn(#"Tipo cambiado", "city", each "Tokyo"),

@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 999.88798751541924,
-        "y": 204.78111849652308
+        "x": 29.073860530597724,
+        "y": 0
       },
       "nodes": [
         {
@@ -88,55 +88,16 @@
         },
         {
           "location": {
-            "x": 1696.7494958043078,
-            "y": 470.52075671736714
+            "x": 1195,
+            "y": 98.373526492666173
           },
-          "nodeIndex": "Table_Fact",
-          "nodeLineageTag": "eaf395a6-c099-44b4-bd54-e74cb20549cc",
+          "nodeIndex": "sydney_airbnb (2)",
+          "nodeLineageTag": "6913e9b8-7351-48eb-ade3-435e315ac586",
           "size": {
-            "height": 578.29325421538113,
-            "width": 305.10455168484395
-          },
-          "zIndex": 10
-        },
-        {
-          "location": {
-            "x": 1331.9150443565595,
-            "y": 469.63792403659613
-          },
-          "nodeIndex": "dimension_host",
-          "nodeLineageTag": "d8d29ee2-659e-4c1a-9988-e4b5d828f890",
-          "size": {
-            "height": 332.43597934351624,
+            "height": 300,
             "width": 234
           },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 2162.902096724114,
-            "y": 428.7004531464969
-          },
-          "nodeIndex": "dimension_house",
-          "nodeLineageTag": "24e11543-54c7-4721-98a7-0b504201c221",
-          "size": {
-            "height": 473.34797711038289,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 1727.3240433176627,
-            "y": 212.33112514369549
-          },
-          "nodeIndex": "dimension_geografic",
-          "nodeLineageTag": "b2d1105e-430e-47c2-a638-de9184ccb76b",
-          "size": {
-            "height": 194.14899248429487,
-            "width": 234
-          },
-          "zIndex": 3
+          "zIndex": 0
         }
       ],
       "name": "Todas las tablas",

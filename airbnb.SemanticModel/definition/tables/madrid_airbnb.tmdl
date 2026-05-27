@@ -168,7 +168,7 @@ table madrid_airbnb
 		mode: import
 		source =
 				let
-				    Origen = Csv.Document(File.Contents("C:\Users\Don Bosco\Desktop\bootcamp-da-p2\DA-project-Power-BI-Analysis-Grupo-5\Data\madrid_airbnb.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\madrid_airbnb.csv"),[Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id", type text}, {"name", type text}, {"host_id", type text}, {"host_name", type text}, {"neighbourhood_group", type text}, {"neighbourhood", type text}, {"latitude", type text}, {"longitude", Int64.Type}, {"room_type", type text}, {"price", type text}, {"minimum_nights", Int64.Type}, {"number_of_reviews", Int64.Type}, {"last_review", type text}, {"reviews_per_month", type text}, {"calculated_host_listings_count", Int64.Type}, {"availability_365", Int64.Type}, {"", Int64.Type}}),
 				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each [id] <> null and [id] <> ""),
