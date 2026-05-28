@@ -23,21 +23,8 @@ relationship fd80cb00-d0ef-41bf-afcf-80b674b69721
 	fromColumn: tokyo_airbnb.last_review
 	toColumn: LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f.Date
 
-relationship 3732aa16-7d56-4dbe-1c94-24cd371a742a
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: dimension_host.id
-	toColumn: Table_Fact.id
-
-relationship c33474c6-ea4e-ed61-d9bf-ab5ec95c94c6
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: dimension_house.id
-	toColumn: Table_Fact.id
-
-relationship 4f7d26c0-1348-6872-89af-0d72658aea50
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: dimension_geografic.id
-	toColumn: Table_Fact.id
+relationship c6ed420f-43d3-4a46-ab4c-01872f228558
+	joinOnDateBehavior: datePartOnly
+	fromColumn: sydney_airbnb.last_review
+	toColumn: LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb.Date
 

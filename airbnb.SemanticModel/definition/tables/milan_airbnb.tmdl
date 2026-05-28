@@ -2,9 +2,10 @@ table milan_airbnb
 	lineageTag: 7eb91f14-6100-4cd2-a644-ce5e7369c16b
 
 	column id
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 896cb956-e682-4cf6-8399-b81a9232e5c0
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: id
 
 		annotation SummarizationSetBy = Automatic
@@ -147,6 +148,22 @@ table milan_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column name_limpio
+		dataType: string
+		lineageTag: 0a2e534f-31b7-4882-b9dc-a51afa031ed7
+		summarizeBy: none
+		sourceColumn: name_limpio
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: 0753caa0-e88e-4f74-a6a3-da284c69c476
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
 	partition milan_airbnb = m
 		mode: import
 		source =
@@ -164,9 +181,12 @@ table milan_airbnb
 				    #"Filas en blanco eliminadas1" = Table.SelectRows(#"Tipo cambiado2", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Filas en blanco eliminadas2" = Table.SelectRows(#"Filas en blanco eliminadas1", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Filas filtradas" = Table.SelectRows(#"Filas en blanco eliminadas2", each [last_review] <> null and [last_review] <> ""),
-				    #"Added Custom" = Table.AddColumn(#"Filas filtradas", "city", each "Milan")
+				    #"Added Custom" = Table.AddColumn(#"Filas filtradas", "city", each "Milan"),
+				    Personalizado1 = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(Personalizado1,{{"id", Int64.Type}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Tipo cambiado3", "neighbourhood_group", each null)
 				in
-				    #"Added Custom"
+				    #"Personalizada agregada"
 
 	annotation PBI_NavigationStepName = Navegación
 

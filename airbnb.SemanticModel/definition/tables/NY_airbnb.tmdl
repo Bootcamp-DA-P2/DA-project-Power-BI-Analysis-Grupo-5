@@ -2,9 +2,10 @@ table NY_airbnb
 	lineageTag: 32ecd945-f0b3-4f52-ba1f-db9af1d396e4
 
 	column id
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: d3f25c63-d455-4332-8b7d-783c8a724c35
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: id
 
 		annotation SummarizationSetBy = Automatic
@@ -155,6 +156,14 @@ table NY_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column name_limpio
+		dataType: string
+		lineageTag: 44580660-b6f3-4e00-95ef-4e7aeea1cf57
+		summarizeBy: none
+		sourceColumn: name_limpio
+
+		annotation SummarizationSetBy = Automatic
+
 	partition NY_airbnb = m
 		mode: import
 		source =
@@ -171,9 +180,11 @@ table NY_airbnb
 				    Personalizado1 = #"Tipo cambiado2",
 				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(Table.TransformColumnTypes(Personalizado1, {{"host_id", type text}}, "es-ES"),{{"id", Text.Proper, type text}, {"name", Text.Proper, type text}, {"host_id", Text.Proper, type text}, {"host_name", Text.Proper, type text}, {"neighbourhood_group", Text.Proper, type text}, {"neighbourhood", Text.Proper, type text}, {"room_type", Text.Proper, type text}}),
 				    #"Texto limpio" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra",{{"id", Text.Clean, type text}, {"name", Text.Clean, type text}, {"host_id", Text.Clean, type text}, {"host_name", Text.Clean, type text}, {"neighbourhood_group", Text.Clean, type text}, {"neighbourhood", Text.Clean, type text}, {"room_type", Text.Clean, type text}}),
-				    #"Added Custom" = Table.AddColumn(#"Texto limpio", "city", each "NY")
+				    #"Added Custom" = Table.AddColumn(#"Texto limpio", "city", each "NY"),
+				    #"Personalizada agregada" = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Personalizada agregada",{{"id", Int64.Type}})
 				in
-				    #"Added Custom"
+				    #"Tipo cambiado3"
 
 	annotation PBI_NavigationStepName = Navegación
 

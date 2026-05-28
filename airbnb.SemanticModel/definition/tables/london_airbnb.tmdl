@@ -149,6 +149,22 @@ table london_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column name_limpio
+		dataType: string
+		lineageTag: bd8d4450-3fc7-47a2-85d4-d3fdfec120bd
+		summarizeBy: none
+		sourceColumn: name_limpio
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: cbd4fdb3-3e25-4ffc-adf0-fdd94f7ef592
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
 	partition london_airbnb = m
 		mode: import
 		source =
@@ -163,9 +179,11 @@ table london_airbnb
 				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Errores quitados", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
 				    #"Filas filtradas1" = Table.SelectRows(#"Filas en blanco eliminadas", each [host_id] <> null and [host_id] <> ""),
 				    #"Filas filtradas2" = Table.SelectRows(#"Filas filtradas1", each [last_review] <> null and [last_review] <> ""),
-				    #"Added Custom" = Table.AddColumn(#"Filas filtradas2", "city", each "London")
+				    #"Added Custom" = Table.AddColumn(#"Filas filtradas2", "city", each "London"),
+				    #"Personalizada agregada" = Table.AddColumn(#"Added Custom", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "neighbourhood_group", each null)
 				in
-				    #"Added Custom"
+				    #"Personalizada agregada1"
 
 	annotation PBI_NavigationStepName = Navegación
 

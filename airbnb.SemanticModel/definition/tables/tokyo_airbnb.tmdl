@@ -129,6 +129,39 @@ table tokyo_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
+	column name_limpio
+		dataType: string
+		lineageTag: e2bc09e3-12ef-480e-925a-6b7cf0875068
+		summarizeBy: none
+		sourceColumn: name_limpio
+
+		annotation SummarizationSetBy = Automatic
+
+	column availability_365
+		dataType: int64
+		formatString: 0
+		lineageTag: caab1253-de3d-4921-86ce-5c3d1a14e61f
+		summarizeBy: sum
+		sourceColumn: availability_365
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbourhood_group
+		dataType: string
+		lineageTag: 07043a08-c37a-4caf-9e1e-23710325cc20
+		summarizeBy: none
+		sourceColumn: neighbourhood_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: string
+		lineageTag: c041660d-e31a-4601-975a-11bad17c3962
+		summarizeBy: none
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
 	partition tokyo_airbnb = m
 		mode: import
 		source =
@@ -141,9 +174,14 @@ table tokyo_airbnb
 				    #"Filtered Rows" = Table.SelectRows(#"Removed Errors", each [host_id] <> null and [host_id] <> ""),
 				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [host_name] <> null and [host_name] <> ""),
 				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows1",{"neighbourhood_group"}),
-				    #"Filtered Rows2" = Table.SelectRows(#"Removed Columns", each [last_review] <> null and [last_review] <> "")
+				    #"Filtered Rows2" = Table.SelectRows(#"Removed Columns", each [last_review] <> null and [last_review] <> ""),
+				    #"Personalizada agregada" = Table.AddColumn(#"Filtered Rows2", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Personalizada agregada", "availability_365", each 0),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"availability_365", Int64.Type}}),
+				    #"Personalizada agregada2" = Table.AddColumn(#"Tipo cambiado1", "neighbourhood_group", each null),
+				    #"Personalizada agregada3" = Table.AddColumn(#"Personalizada agregada2", "calculated_host_listings_count", each null)
 				in
-				    #"Filtered Rows2"
+				    #"Personalizada agregada3"
 
 	annotation PBI_NavigationStepName = Navegación
 

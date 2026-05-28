@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 706.62125292083931,
-        "y": 204.78111849652308
+        "x": 29.073860530597724,
+        "y": 0
       },
       "nodes": [
         {
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 0,
-            "y": 378
+            "y": 262.65261615569733
           },
           "nodeIndex": "NY_airbnb",
           "nodeLineageTag": "32ecd945-f0b3-4f52-ba1f-db9af1d396e4",
@@ -62,21 +62,20 @@
         },
         {
           "location": {
-            "x": 418,
-            "y": 506
+            "x": 1195,
+            "y": 98.373526492666173
           },
           "nodeIndex": "sydney_airbnb",
-          "nodeLineageTag": "3f1c456b-967a-463c-8731-f02601c020b6",
           "size": {
-            "height": 193,
+            "height": 300,
             "width": 234
           },
           "zIndex": 6
         },
         {
           "location": {
-            "x": 894,
-            "y": 479
+            "x": 644.34401852876965,
+            "y": 20.770666919893529
           },
           "nodeIndex": "tokyo_airbnb",
           "nodeLineageTag": "45222da6-f510-4835-8948-a2af2e36acd1",
@@ -85,58 +84,6 @@
             "width": 234
           },
           "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 1734.6719233695578,
-            "y": 494.22227394564857
-          },
-          "nodeIndex": "Table_Fact",
-          "nodeLineageTag": "eaf395a6-c099-44b4-bd54-e74cb20549cc",
-          "size": {
-            "height": 554.59173698709981,
-            "width": 234
-          },
-          "zIndex": 10
-        },
-        {
-          "location": {
-            "x": 1331.9150443565595,
-            "y": 469.63792403659613
-          },
-          "nodeIndex": "dimension_host",
-          "nodeLineageTag": "d8d29ee2-659e-4c1a-9988-e4b5d828f890",
-          "size": {
-            "height": 332.43597934351624,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 2162.902096724114,
-            "y": 428.7004531464969
-          },
-          "nodeIndex": "dimension_house",
-          "nodeLineageTag": "24e11543-54c7-4721-98a7-0b504201c221",
-          "size": {
-            "height": 473.34797711038289,
-            "width": 234
-          },
-          "zIndex": 2
-        },
-        {
-          "location": {
-            "x": 1727.3240433176627,
-            "y": 212.33112514369549
-          },
-          "nodeIndex": "dimension_geografic",
-          "nodeLineageTag": "b2d1105e-430e-47c2-a638-de9184ccb76b",
-          "size": {
-            "height": 194.14899248429487,
-            "width": 234
-          },
-          "zIndex": 3
         }
       ],
       "name": "Todas las tablas",
