@@ -1,56 +1,20 @@
 table dim_city
-	lineageTag: af1ba707-4bb4-4099-96e4-f1e75fffaa91
-
-	column neighbourhood_group
-		dataType: string
-		lineageTag: 55be02ce-5608-4f65-b398-e2af845e1e41
-		summarizeBy: none
-		sourceColumn: neighbourhood_group
-
-		annotation SummarizationSetBy = Automatic
-
-	column neighbourhood
-		dataType: string
-		lineageTag: ae3d44b7-4e76-4269-8064-f713ac1ef09d
-		summarizeBy: none
-		sourceColumn: neighbourhood
-
-		annotation SummarizationSetBy = Automatic
-
-	column latitude
-		dataType: double
-		lineageTag: 4ab67b44-f71d-405a-b56d-6fc7cf3dbfcd
-		summarizeBy: sum
-		sourceColumn: latitude
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column longitude
-		dataType: double
-		lineageTag: 89ca94a5-0e0f-4fee-8483-ea1513c26c66
-		summarizeBy: sum
-		sourceColumn: longitude
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+	lineageTag: 1594e8fe-2644-4376-b9f3-96c4331d665f
 
 	column city
 		dataType: string
-		lineageTag: 229e1846-75d5-41ae-b3b7-1615bab22c2d
+		lineageTag: 3e8fec97-3b25-423c-a759-0b89b3d5b782
 		summarizeBy: none
 		sourceColumn: city
 
 		annotation SummarizationSetBy = Automatic
 
-	column id_neighbourhood
+	column id_city
 		dataType: int64
 		formatString: 0
-		lineageTag: 7c24ce0c-4e66-42db-bc2d-a06a9de0bd21
-		summarizeBy: none
-		sourceColumn: id_neighbourhood
+		lineageTag: de5eb722-cf8c-4265-bcb5-a4c5c5a64f4c
+		summarizeBy: sum
+		sourceColumn: id_city
 
 		annotation SummarizationSetBy = Automatic
 
@@ -129,9 +93,13 @@ table dim_city
 				    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió dim_room_Type",{"id", "name", "host_id", "host_name", "room_type", "price", "minimum_nights", "number_of_reviews", "last_review", "calculated_host_listings_count", "availability_365", "name_limpio", "dim_room_Type.id_roomType", "reviews_per_month"}),
 				    #"Duplicados quitados" = Table.Distinct(#"Columnas quitadas", {"neighbourhood"}),
 				    #"Índice agregado" = Table.AddIndexColumn(#"Duplicados quitados", "Índice", 1, 1, Int64.Type),
-				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Índice agregado",{{"Índice", "id_neighbourhood"}})
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Índice agregado",{{"Índice", "id_neighbourhood"}}),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Columnas con nombre cambiado1",{"city"}),
+				    #"Duplicados quitados1" = Table.Distinct(#"Otras columnas quitadas"),
+				    #"Índice agregado1" = Table.AddIndexColumn(#"Duplicados quitados1", "Índice", 1, 1, Int64.Type),
+				    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Índice agregado1",{{"Índice", "id_city"}})
 				in
-				    #"Columnas con nombre cambiado1"
+				    #"Columnas con nombre cambiado2"
 				```
 
 	annotation PBI_NavigationStepName = Navegación

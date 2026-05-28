@@ -9,71 +9,11 @@ table fact_listings
 
 		annotation SummarizationSetBy = Automatic
 
-	column name
-		dataType: string
-		lineageTag: c08938d1-567e-4c82-9fca-154bc7223e37
-		summarizeBy: none
-		sourceColumn: name
-
-		annotation SummarizationSetBy = Automatic
-
 	column host_id
 		dataType: string
 		lineageTag: 75cc657f-f543-4208-9dfa-d99e3dc2ab84
 		summarizeBy: none
 		sourceColumn: host_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column host_name
-		dataType: string
-		lineageTag: 71fb6649-d61e-44f2-b7f3-5a841c574629
-		summarizeBy: none
-		sourceColumn: host_name
-
-		annotation SummarizationSetBy = Automatic
-
-	column neighbourhood_group
-		dataType: string
-		lineageTag: 0516b2a9-98a1-401b-b2fe-3e9f1b6dc983
-		summarizeBy: none
-		sourceColumn: neighbourhood_group
-
-		annotation SummarizationSetBy = Automatic
-
-	column neighbourhood
-		dataType: string
-		lineageTag: 05d8d6c5-9fef-41ca-a915-dc3a1b2fe1da
-		summarizeBy: none
-		sourceColumn: neighbourhood
-
-		annotation SummarizationSetBy = Automatic
-
-	column latitude
-		dataType: double
-		lineageTag: 27a80d6a-91b1-4393-bb34-02a648f4ef35
-		summarizeBy: sum
-		sourceColumn: latitude
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column longitude
-		dataType: double
-		lineageTag: e4b90495-0b33-4225-b00e-77c582d59858
-		summarizeBy: sum
-		sourceColumn: longitude
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column room_type
-		dataType: string
-		lineageTag: 0ee94f38-b3c6-40b9-bae6-1270bb65caa7
-		summarizeBy: none
-		sourceColumn: room_type
 
 		annotation SummarizationSetBy = Automatic
 
@@ -105,22 +45,6 @@ table fact_listings
 
 		annotation SummarizationSetBy = Automatic
 
-	column last_review
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: d0309169-37a1-4fa2-8ec9-cccfa0c30a5b
-		summarizeBy: none
-		sourceColumn: last_review
-
-		variation Variación
-			isDefault
-			relationship: 51b5e388-f3f0-49df-900d-9048809313b7
-			defaultHierarchy: LocalDateTable_707d6027-5e66-47fb-82c0-21055add9ca0.'Jerarquía de fechas'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
 	column reviews_per_month
 		dataType: double
 		lineageTag: 830f0c05-56d9-4239-bb85-23b285fe1428
@@ -130,39 +54,6 @@ table fact_listings
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column calculated_host_listings_count
-		dataType: string
-		lineageTag: 0ef35e4c-d2fd-4c9d-8a33-34332f0e4fa6
-		summarizeBy: none
-		sourceColumn: calculated_host_listings_count
-
-		annotation SummarizationSetBy = Automatic
-
-	column availability_365
-		dataType: int64
-		formatString: 0
-		lineageTag: a6edf47d-18b7-4858-8a0e-12848f4ac0f0
-		summarizeBy: sum
-		sourceColumn: availability_365
-
-		annotation SummarizationSetBy = Automatic
-
-	column city
-		dataType: string
-		lineageTag: 70a0ed89-90d4-4dda-8c5d-2e57751e5f1c
-		summarizeBy: none
-		sourceColumn: city
-
-		annotation SummarizationSetBy = Automatic
-
-	column name_limpio
-		dataType: string
-		lineageTag: 1c7506d5-9e9c-49d2-8372-da71418deecf
-		summarizeBy: none
-		sourceColumn: name_limpio
-
-		annotation SummarizationSetBy = Automatic
 
 	column 'dim_room_Type.id_roomType'
 		dataType: int64
@@ -177,7 +68,7 @@ table fact_listings
 		dataType: int64
 		formatString: 0
 		lineageTag: d9728b2a-dd7d-4600-b288-9144b1c37821
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: dim_city.id_neighbourhood
 
 		annotation SummarizationSetBy = Automatic
@@ -263,12 +154,13 @@ table fact_listings
 				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}}),
 				    #"Consultas combinadas" = Table.NestedJoin(#"Poner En Mayúsculas Cada Palabra1", {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
 				    #"Se expandió dim_room_Type" = Table.ExpandTableColumn(#"Consultas combinadas", "dim_room_Type", {"id_roomType"}, {"dim_room_Type.id_roomType"}),
-				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_city, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_neighbourhood, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
 				    #"Consultas combinadas2" = Table.NestedJoin(#"Consultas combinadas1", {"last_review"}, dim_date, {"last_review"}, "dim_date", JoinKind.LeftOuter),
 				    #"Se expandió dim_city" = Table.ExpandTableColumn(#"Consultas combinadas2", "dim_city", {"id_neighbourhood"}, {"dim_city.id_neighbourhood"}),
-				    #"Se expandió dim_date" = Table.ExpandTableColumn(#"Se expandió dim_city", "dim_date", {"id_date"}, {"dim_date.id_date"})
+				    #"Se expandió dim_date" = Table.ExpandTableColumn(#"Se expandió dim_city", "dim_date", {"id_date"}, {"dim_date.id_date"}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió dim_date",{"name", "host_name", "neighbourhood_group", "neighbourhood", "latitude", "longitude", "room_type", "last_review", "calculated_host_listings_count", "availability_365", "city", "name_limpio"})
 				in
-				    #"Se expandió dim_date"
+				    #"Columnas quitadas"
 				```
 
 	annotation PBI_NavigationStepName = Navegación

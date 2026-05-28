@@ -98,7 +98,7 @@ table dim_date
 				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}}),
 				    #"Consultas combinadas" = Table.NestedJoin(#"Poner En Mayúsculas Cada Palabra1", {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
 				    #"Se expandió dim_room_Type" = Table.ExpandTableColumn(#"Consultas combinadas", "dim_room_Type", {"id_roomType"}, {"dim_room_Type.id_roomType"}),
-				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_city, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_neighbourhood, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
 				    #"Otras columnas quitadas" = Table.SelectColumns(#"Consultas combinadas1",{"last_review"}),
 				    #"Filas filtradas1" = Table.SelectRows(#"Otras columnas quitadas", each ([last_review] <> null)),
 				    #"Duplicados quitados" = Table.Distinct(#"Filas filtradas1"),
