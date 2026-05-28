@@ -164,6 +164,33 @@ table fact_listings
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'dim_room_Type.id_roomType'
+		dataType: int64
+		formatString: 0
+		lineageTag: b7dfe410-8e8b-41fc-b184-d0a6746a0c51
+		summarizeBy: sum
+		sourceColumn: dim_room_Type.id_roomType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dim_city.id_neighbourhood'
+		dataType: int64
+		formatString: 0
+		lineageTag: d9728b2a-dd7d-4600-b288-9144b1c37821
+		summarizeBy: sum
+		sourceColumn: dim_city.id_neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dim_date.id_date'
+		dataType: int64
+		formatString: 0
+		lineageTag: 65054ca1-9480-49e5-9e50-ec19f981c5e8
+		summarizeBy: none
+		sourceColumn: dim_date.id_date
+
+		annotation SummarizationSetBy = Automatic
+
 	partition fact_listings = m
 		mode: import
 		source = ```
@@ -233,9 +260,15 @@ table fact_listings
 				    // CORREGIDO: Ahora sí se apoya en #"Columnas con nombre cambiado" y se le quitó la coma final
 				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
 				    #"Consulta anexada" = Table.Combine({#"Personalizada agregada", madrid_airbnb, london_airbnb, NY_airbnb, milan_airbnb, tokyo_airbnb}),
-				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}})
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}}),
+				    #"Consultas combinadas" = Table.NestedJoin(#"Poner En Mayúsculas Cada Palabra1", {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
+				    #"Se expandió dim_room_Type" = Table.ExpandTableColumn(#"Consultas combinadas", "dim_room_Type", {"id_roomType"}, {"dim_room_Type.id_roomType"}),
+				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_city, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
+				    #"Consultas combinadas2" = Table.NestedJoin(#"Consultas combinadas1", {"last_review"}, dim_date, {"last_review"}, "dim_date", JoinKind.LeftOuter),
+				    #"Se expandió dim_city" = Table.ExpandTableColumn(#"Consultas combinadas2", "dim_city", {"id_neighbourhood"}, {"dim_city.id_neighbourhood"}),
+				    #"Se expandió dim_date" = Table.ExpandTableColumn(#"Se expandió dim_city", "dim_date", {"id_date"}, {"dim_date.id_date"})
 				in
-				    #"Poner En Mayúsculas Cada Palabra1"
+				    #"Se expandió dim_date"
 				```
 
 	annotation PBI_NavigationStepName = Navegación

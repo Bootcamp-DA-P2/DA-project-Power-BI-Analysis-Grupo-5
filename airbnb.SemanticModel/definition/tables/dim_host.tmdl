@@ -25,6 +25,33 @@ table dim_host
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'dim_room_Type.id_roomType'
+		dataType: int64
+		formatString: 0
+		lineageTag: 35e678b2-293c-49ea-bcff-c668585fb2ad
+		summarizeBy: sum
+		sourceColumn: dim_room_Type.id_roomType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dim_city.id_neighbourhood'
+		dataType: int64
+		formatString: 0
+		lineageTag: 94445d66-2dd3-42c5-9867-985dfa5d2b3d
+		summarizeBy: none
+		sourceColumn: dim_city.id_neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dim_date.id_date'
+		dataType: int64
+		formatString: 0
+		lineageTag: 176eddda-9522-42b5-afe1-333b34a73842
+		summarizeBy: none
+		sourceColumn: dim_date.id_date
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_host = m
 		mode: import
 		source =
