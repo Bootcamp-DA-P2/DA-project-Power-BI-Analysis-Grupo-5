@@ -232,9 +232,10 @@ table fact_listings
 				    
 				    // CORREGIDO: Ahora sí se apoya en #"Columnas con nombre cambiado" y se le quitó la coma final
 				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
-				    #"Consulta anexada" = Table.Combine({#"Personalizada agregada", madrid_airbnb, london_airbnb, NY_airbnb, milan_airbnb, tokyo_airbnb})
+				    #"Consulta anexada" = Table.Combine({#"Personalizada agregada", madrid_airbnb, london_airbnb, NY_airbnb, milan_airbnb, tokyo_airbnb}),
+				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}})
 				in
-				    #"Consulta anexada"
+				    #"Poner En Mayúsculas Cada Palabra1"
 				```
 
 	annotation PBI_NavigationStepName = Navegación

@@ -71,3 +71,8 @@ relationship AutoDetected_81129bd6-90d2-439b-881e-98d7c23a377a
 	fromColumn: fact_listings.latitude
 	toColumn: sydney_airbnb.latitude
 
+relationship 2668effe-9bf7-4174-be06-a24cd979b28e
+	isActive: false
+	fromColumn: fact_listings.room_type
+	toColumn: dim_roomType.room_type
+
