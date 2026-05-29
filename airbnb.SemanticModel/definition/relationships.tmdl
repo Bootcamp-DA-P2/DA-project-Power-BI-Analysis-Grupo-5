@@ -1,101 +1,17 @@
-relationship 2e8ae6a1-118e-42c3-86c5-e3098d75787d
-	joinOnDateBehavior: datePartOnly
-	fromColumn: madrid_airbnb.last_review
-	toColumn: LocalDateTable_e013f620-fd16-4c2e-9533-988287e4ed74.Date
-
-relationship 055fd003-e919-44a2-8344-96f5a0b8b5a7
-	joinOnDateBehavior: datePartOnly
-	fromColumn: london_airbnb.last_review
-	toColumn: LocalDateTable_dca6a37c-ad43-4e59-bc6f-5d9e3ad64444.Date
-
-relationship e681c884-b4e8-4d73-a863-482118dfae28
-	joinOnDateBehavior: datePartOnly
-	fromColumn: NY_airbnb.last_review
-	toColumn: LocalDateTable_e59332f3-c2bb-43e8-bc07-8fba30d62600.Date
-
-relationship 4ae7a358-5006-4c9c-af4b-5c67cb6374e9
-	joinOnDateBehavior: datePartOnly
-	fromColumn: milan_airbnb.last_review
-	toColumn: LocalDateTable_3e1fe1e5-bdff-480c-ba5e-52e0409b49df.Date
-
-relationship fd80cb00-d0ef-41bf-afcf-80b674b69721
-	joinOnDateBehavior: datePartOnly
-	fromColumn: tokyo_airbnb.last_review
-	toColumn: LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f.Date
-
-relationship c6ed420f-43d3-4a46-ab4c-01872f228558
-	joinOnDateBehavior: datePartOnly
-	fromColumn: sydney_airbnb.last_review
-	toColumn: LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb.Date
-
-relationship AutoDetected_e62f4f0c-dc4b-4742-8580-e6fe48a6ab13
-	isActive: false
-	fromColumn: fact_listings.'dim_room_Type.id_roomType'
-	toColumn: dim_room_Type.id_roomType
-
 relationship 2b0b4d94-eb2b-4893-ade5-e47fd1fd31b7
 	joinOnDateBehavior: datePartOnly
 	fromColumn: dim_date.last_review
 	toColumn: LocalDateTable_b45107fd-d3ad-48bf-a93a-d4bbd8662b39.Date
 
-relationship AutoDetected_f9cc7ea6-ad0f-497e-bb83-97406abec535
-	fromColumn: madrid_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
+relationship AutoDetected_c91b5224-61d7-4a2a-9e14-8a7d172f9e51
+	fromColumn: fact_listings.id_neighbourhood
+	toColumn: dim_neighbourhood.id_neighbourhood
 
-relationship AutoDetected_357b6ef5-8fe8-4824-93e9-4981d8533cf8
-	fromColumn: london_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
-
-relationship AutoDetected_458923c7-a5cf-4bae-8d7b-356ba695275c
-	fromColumn: NY_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
-
-relationship AutoDetected_60b138db-df81-40e9-b1f1-4ea145faab5f
-	fromColumn: milan_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
-
-relationship AutoDetected_186cb962-37c6-42b7-b689-7960d3093cdf
-	fromColumn: tokyo_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
-
-relationship AutoDetected_5cf813d0-a3e9-4c7c-92b4-12a3a665e6c5
-	fromColumn: sydney_airbnb.neighbourhood
-	toColumn: dim_neighbourhood.neighbourhood
-
-relationship AutoDetected_baae8c80-176d-438d-80f5-c6eff6a51d78
-	fromColumn: fact_listings.'dim_date.id_date'
+relationship AutoDetected_d1f674a0-7130-4505-9643-a959222dde40
+	fromColumn: fact_listings.id_date
 	toColumn: dim_date.id_date
 
-relationship AutoDetected_4f047e55-f33a-46bf-b2ae-73a83fed3d33
-	fromColumn: madrid_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_6b48b1e8-9948-4627-9b8c-a5d7958c887f
-	fromColumn: london_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_d7ad3f04-b73c-4b34-8406-0d99defb1caa
-	fromColumn: NY_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_34168815-63e1-4714-a0e8-c1950fb190f2
-	fromColumn: milan_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_a0a744a1-c46b-4d09-a84d-d291978c046b
-	fromColumn: tokyo_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_8f4d210d-bda8-475d-9b57-33dc372841ae
-	fromColumn: sydney_airbnb.city
-	toColumn: dim_city.city
-
-relationship AutoDetected_744184e3-3fc5-4216-97b0-9b8a5aca926a
-	isActive: false
-	fromColumn: dim_neighbourhood.city
-	toColumn: dim_city.city
-
-relationship 8709967e-1661-ee85-032f-51caaf06008e
-	fromColumn: fact_listings.'dim_city.id_neighbourhood'
-	toColumn: dim_neighbourhood.id_neighbourhood
+relationship AutoDetected_31c173ee-a75b-412c-93f4-9b5397a69ef8
+	fromColumn: fact_listings.id_roomType
+	toColumn: dim_room_Type.id_roomType
 

@@ -4,92 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 1480.8000488281029,
-        "y": 487.200012207024
+        "x": 673.72582107805192,
+        "y": 228.81252871173896
       },
       "nodes": [
         {
           "location": {
-            "x": 2629.6043507087229,
-            "y": 726.21288698608646
-          },
-          "nodeIndex": "london_airbnb",
-          "nodeLineageTag": "28cdfeb0-66c1-458a-8d66-4d1e1d5550f3",
-          "size": {
-            "height": 182,
-            "width": 234
-          },
-          "zIndex": 9
-        },
-        {
-          "location": {
-            "x": 95.382804746144529,
-            "y": 56.25
-          },
-          "nodeIndex": "madrid_airbnb",
-          "nodeLineageTag": "b1c64bac-333d-4051-a6f1-35c0cab27666",
-          "size": {
-            "height": 194,
-            "width": 234
-          },
-          "zIndex": 8
-        },
-        {
-          "location": {
-            "x": 9.0728436664229548,
-            "y": 857.1906013847331
-          },
-          "nodeIndex": "milan_airbnb",
-          "nodeLineageTag": "7eb91f14-6100-4cd2-a644-ce5e7369c16b",
-          "size": {
-            "height": 224,
-            "width": 234
-          },
-          "zIndex": 4
-        },
-        {
-          "location": {
-            "x": 0,
-            "y": 467.43212411959388
-          },
-          "nodeIndex": "NY_airbnb",
-          "nodeLineageTag": "32ecd945-f0b3-4f52-ba1f-db9af1d396e4",
-          "size": {
-            "height": 182,
-            "width": 234
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
-            "x": 1132.7204374531832,
-            "y": 789.176861858585
-          },
-          "nodeIndex": "sydney_airbnb",
-          "nodeLineageTag": "6913e9b8-7351-48eb-ade3-435e315ac586",
-          "size": {
-            "height": 300,
-            "width": 234
-          },
-          "zIndex": 6
-        },
-        {
-          "location": {
-            "x": 644.34401852876965,
-            "y": 77.020666919893529
-          },
-          "nodeIndex": "tokyo_airbnb",
-          "nodeLineageTag": "45222da6-f510-4835-8948-a2af2e36acd1",
-          "size": {
-            "height": 189,
-            "width": 234
-          },
-          "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 1977.5154854804596,
-            "y": 967.29071978214108
+            "x": 1566.3679620598637,
+            "y": 1042.7670767385789
           },
           "nodeIndex": "dim_date",
           "nodeLineageTag": "b2ea870e-b7b9-4a28-aa3a-22b0f34aff5c",
@@ -127,8 +49,8 @@
         },
         {
           "location": {
-            "x": 1653.5569439851793,
-            "y": 1162.4524118332465
+            "x": 1039.8149887341449,
+            "y": 510.97227810399318
           },
           "nodeIndex": "dim_room_Type",
           "nodeLineageTag": "f7716272-3e84-410d-98a6-514cf7a4d280",
@@ -150,23 +72,10 @@
             "width": 234
           },
           "zIndex": 12
-        },
-        {
-          "location": {
-            "x": 2261.5154854804596,
-            "y": 571.85120591662326
-          },
-          "nodeIndex": "dim_city",
-          "nodeLineageTag": "1594e8fe-2644-4376-b9f3-96c4331d665f",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 11
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 100.00000000000149,
+      "zoomValue": 50.3468921028239,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

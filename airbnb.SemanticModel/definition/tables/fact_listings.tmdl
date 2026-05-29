@@ -55,113 +55,51 @@ table fact_listings
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column 'dim_room_Type.id_roomType'
+	column id_neighbourhood
 		dataType: int64
 		formatString: 0
-		lineageTag: b7dfe410-8e8b-41fc-b184-d0a6746a0c51
-		summarizeBy: sum
-		sourceColumn: dim_room_Type.id_roomType
+		lineageTag: fea76087-ab5b-43e0-993b-60768476f642
+		summarizeBy: none
+		sourceColumn: id_neighbourhood
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'dim_city.id_neighbourhood'
+	column id_date
 		dataType: int64
 		formatString: 0
-		lineageTag: d9728b2a-dd7d-4600-b288-9144b1c37821
+		lineageTag: b72ec645-6add-44dc-ae9d-5c07da9eb678
 		summarizeBy: none
-		sourceColumn: dim_city.id_neighbourhood
+		sourceColumn: id_date
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'dim_date.id_date'
+	column id_roomType
 		dataType: int64
 		formatString: 0
-		lineageTag: 65054ca1-9480-49e5-9e50-ec19f981c5e8
+		lineageTag: ec147f77-d941-466f-947f-d48262a9d317
 		summarizeBy: none
-		sourceColumn: dim_date.id_date
+		sourceColumn: id_roomType
 
 		annotation SummarizationSetBy = Automatic
 
 	partition fact_listings = m
 		mode: import
-		source = ```
+		source =
 				let
-				    // 1. Cargamos el archivo utilizando QuoteStyle.Csv para que asimile perfectamente las comas internas de los nombres
-				    Origen = Csv.Document(File.Contents("C:\Users\crist\Desktop\DataAnalyst_Ana\DA-project-Power-BI-Analysis-Grupo-5\data\sydney_airbnb.csv"), [Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.Csv]),
-				    
-				    // 2. Subimos la primera fila como los títulos de las columnas
-				    #"Encabezados promovidos" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
-				
-				    // 3. Convertir Latitud usando región de EE.UU. (acepta puntos como decimales)
-				    #"Tipo cambiado con configuración regional" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"latitude", type number}}, "en-US"),
-				
-				    // 4. Si la latitud dio error, se reemplaza por un 0
-				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional", {{"latitude", 0}}),
-				
-				    // 5. Convertir Longitud usando región de EE.UU.
-				    #"Tipo cambiado con configuración regional1" = Table.TransformColumnTypes(#"Errores reemplazados", {{"longitude", type number}}, "en-US"),
-				
-				    // 6. Si la longitud dio error, se reemplaza por un 0
-				    #"Errores reemplazados1" = Table.ReplaceErrorValues(#"Tipo cambiado con configuración regional1", {{"longitude", 0}}),
-				
-				    // 7. Limpieza de textos en un solo paso eficiente (Poner en mayúscula cada palabra, quitar espacios y caracteres invisibles)
-				    #"Textos limpios" = Table.TransformColumns(#"Errores reemplazados1", {
-				        {"name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
-				        {"host_name", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
-				        {"neighbourhood", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text},
-				        {"room_type", each Text.Proper(Text.Trim(Text.Clean(Text.From(_)))), type text}
-				    }),
-				
-				    // 8. Convertir columnas numéricas de manera segura (si encuentra texto pone NULL) y limpiar el signo $ y comas del precio
-				    #"room_type" = Table.TransformColumns(#"Textos limpios", {
-				        {"availability_365", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
-				        {"calculated_host_listings_count", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
-				        {"number_of_reviews", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
-				        {"minimum_nights", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
-				        {"price", each try Int64.From(Text.Replace(Text.Replace(Text.Replace(Text.Trim(Text.From(_)), "$", ""), ",", ""), ".", "")) otherwise null, Int64.Type},
-				        {"host_id", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type},
-				        {"id", each try Int64.From(Text.Trim(Text.From(_))) otherwise null, Int64.Type}
-				    }),
-				
-				    // 9. Convertir reseñas por mes usando región de EE.UU.
-				    #"Tipo_EEUU_reviews_per_month" = Table.TransformColumnTypes(#"room_type", {{"reviews_per_month", type number}}, "en-US"),
-				
-				    // 10. Si la reseña da error, se reemplaza por 0
-				    #"Errores_reviews_per_month" = Table.ReplaceErrorValues(#"Tipo_EEUU_reviews_per_month", {{"reviews_per_month", 0}}),
-				
-				    // 11. Convertir las reseñas finales a número entero
-				    #"tipo-entero_reviews_per_month" = Table.TransformColumnTypes(#"Errores_reviews_per_month", {{"reviews_per_month", Int64.Type}}),
-				
-				    // 12. Convertir de manera segura la columna de fechas (si falla pone NULL)
-				    #"Tipo cambiado" = Table.TransformColumns(#"tipo-entero_reviews_per_month", {
-				        {"last_review", each try Date.From(_) otherwise null, type date}
-				    }),
-				
-				    // 13. Agregar la columna final identificando que pertenece a la ciudad de sydney
-				    #"Columna ciudad agregada" = Table.AddColumn(#"Tipo cambiado", "ciudad", each "sydney", type text),
-				    
-				    #"Filas filtradas" = Table.SelectRows(#"Columna ciudad agregada", each true),
-				    
-				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Filas filtradas",{{"ciudad", Text.Proper, type text}}),
-				    
-				    #"Valor reemplazado" = Table.ReplaceValue(#"Poner En Mayúsculas Cada Palabra","",null,Replacer.ReplaceValue,{"neighbourhood_group"}),
-				    
-				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Valor reemplazado",{{"ciudad", "city"}}),
-				    
-				    // CORREGIDO: Ahora sí se apoya en #"Columnas con nombre cambiado" y se le quitó la coma final
-				    #"Personalizada agregada" = Table.AddColumn(#"Columnas con nombre cambiado", "name_limpio", each Text.Select([name], {"A".."Z", "a".."z", "0".."9", " ", ".", ",", "-", "ñ", "Ñ", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "&"})),
-				    #"Consulta anexada" = Table.Combine({#"Personalizada agregada", madrid_airbnb, london_airbnb, NY_airbnb, milan_airbnb, tokyo_airbnb}),
-				    #"Poner En Mayúsculas Cada Palabra1" = Table.TransformColumns(#"Consulta anexada",{{"room_type", Text.Proper, type text}}),
-				    #"Consultas combinadas" = Table.NestedJoin(#"Poner En Mayúsculas Cada Palabra1", {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
-				    #"Se expandió dim_room_Type" = Table.ExpandTableColumn(#"Consultas combinadas", "dim_room_Type", {"id_roomType"}, {"dim_room_Type.id_roomType"}),
-				    #"Consultas combinadas1" = Table.NestedJoin(#"Se expandió dim_room_Type", {"neighbourhood"}, dim_neighbourhood, {"neighbourhood"}, "dim_city", JoinKind.LeftOuter),
-				    #"Consultas combinadas2" = Table.NestedJoin(#"Consultas combinadas1", {"last_review"}, dim_date, {"last_review"}, "dim_date", JoinKind.LeftOuter),
-				    #"Se expandió dim_city" = Table.ExpandTableColumn(#"Consultas combinadas2", "dim_city", {"id_neighbourhood"}, {"dim_city.id_neighbourhood"}),
-				    #"Se expandió dim_date" = Table.ExpandTableColumn(#"Se expandió dim_city", "dim_date", {"id_date"}, {"dim_date.id_date"}),
-				    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió dim_date",{"name", "host_name", "neighbourhood_group", "neighbourhood", "latitude", "longitude", "room_type", "last_review", "calculated_host_listings_count", "availability_365", "city", "name_limpio"})
+				    #"RT_join" = Table.NestedJoin(base_combinada, {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
+				    #"RT_id"   = Table.ExpandTableColumn(#"RT_join", "dim_room_Type", {"id_roomType"}, {"id_roomType"}),
+				    #"NB_join" = Table.NestedJoin(#"RT_id", {"neighbourhood"}, dim_neighbourhood, {"neighbourhood"}, "dim_nb", JoinKind.LeftOuter),
+				    #"NB_id"   = Table.ExpandTableColumn(#"NB_join", "dim_nb", {"id_neighbourhood"}, {"id_neighbourhood"}),
+				    #"DT_join" = Table.NestedJoin(#"NB_id", {"last_review"}, dim_date, {"last_review"}, "dim_date", JoinKind.LeftOuter),
+				    #"DT_id"   = Table.ExpandTableColumn(#"DT_join", "dim_date", {"id_date"}, {"id_date"}),
+				    #"Limpia"  = Table.RemoveColumns(#"DT_id", {
+				                     "name", "host_name", "neighbourhood_group",
+				                     "neighbourhood", "latitude", "longitude", "room_type", "last_review",
+				                     "calculated_host_listings_count", "availability_365", "city", "name_limpio"}),
+				    #"host_txt"   = Table.TransformColumnTypes(#"Limpia", {{"host_id", type text}}),
+				    #"host_clean" = Table.TransformColumns(#"host_txt", {{"host_id", Text.Clean, type text}})
 				in
-				    #"Columnas quitadas"
-				```
+				    #"host_clean"
 
 	annotation PBI_NavigationStepName = Navegación
 
