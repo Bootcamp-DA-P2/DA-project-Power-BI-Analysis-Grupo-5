@@ -1,0 +1,35 @@
+table dim_room_Type
+	lineageTag: f7716272-3e84-410d-98a6-514cf7a4d280
+
+	column room_type
+		dataType: string
+		lineageTag: f70a6856-f360-4454-907b-3445707b9030
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_roomType
+		dataType: int64
+		formatString: 0
+		lineageTag: 45726041-6211-475f-b206-8cb9452b9110
+		summarizeBy: none
+		sourceColumn: id_roomType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_room_Type = m
+		mode: import
+		source =
+				let
+				    Unicos    = Table.SelectColumns(base_combinada, {"room_type"}),
+				    Distintos = Table.Distinct(Unicos),
+				    Filtrados = Table.SelectRows(Distintos, each [room_type] <> "" and [room_type] <> null),
+				    Indexado  = Table.AddIndexColumn(Filtrados, "id_roomType", 1, 1, Int64.Type)
+				in
+				    Indexado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

@@ -8,23 +8,17 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb","tokyo_airbnb","sydney_airbnb"]
+annotation PBI_QueryOrder = ["madrid_airbnb","london_airbnb","NY_airbnb","milan_airbnb","tokyo_airbnb","sydney_airbnb","base_combinada","dim_room_Type","dim_neighbourhood","dim_date","dim_host","fact_listings"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table madrid_airbnb
 ref table DateTableTemplate_9c172b78-e691-4858-8425-c83a81362cbe
-ref table LocalDateTable_e013f620-fd16-4c2e-9533-988287e4ed74
-ref table london_airbnb
-ref table LocalDateTable_dca6a37c-ad43-4e59-bc6f-5d9e3ad64444
-ref table NY_airbnb
-ref table LocalDateTable_e59332f3-c2bb-43e8-bc07-8fba30d62600
-ref table milan_airbnb
-ref table LocalDateTable_3e1fe1e5-bdff-480c-ba5e-52e0409b49df
-ref table tokyo_airbnb
-ref table LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f
-ref table sydney_airbnb
-ref table LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb
+ref table fact_listings
+ref table dim_room_Type
+ref table dim_neighbourhood
+ref table dim_date
+ref table LocalDateTable_b45107fd-d3ad-48bf-a93a-d4bbd8662b39
+ref table dim_host
 
 ref cultureInfo es-ES
 

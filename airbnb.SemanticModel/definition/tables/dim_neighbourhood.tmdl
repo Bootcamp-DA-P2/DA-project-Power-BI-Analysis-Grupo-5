@@ -1,0 +1,43 @@
+table dim_neighbourhood
+	lineageTag: af1ba707-4bb4-4099-96e4-f1e75fffaa91
+
+	column neighbourhood
+		dataType: string
+		lineageTag: ae3d44b7-4e76-4269-8064-f713ac1ef09d
+		summarizeBy: none
+		sourceColumn: neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 437036aa-ab63-45bb-b45b-d004ba047650
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_neighbourhood
+		dataType: int64
+		formatString: 0
+		lineageTag: 9298a50c-9618-4350-8904-083f939ff9fd
+		summarizeBy: none
+		sourceColumn: id_neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_neighbourhood = m
+		mode: import
+		source =
+				let
+				    Cols      = Table.SelectColumns(base_combinada, {"neighbourhood", "city"}),
+				    Distintos = Table.Distinct(Cols, {"neighbourhood"}),
+				    Filtrados = Table.SelectRows(Distintos, each [neighbourhood] <> "" and [neighbourhood] <> null),
+				    Indexado  = Table.AddIndexColumn(Filtrados, "id_neighbourhood", 1, 1, Int64.Type)
+				in
+				    Indexado
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

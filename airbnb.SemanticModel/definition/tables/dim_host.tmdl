@@ -1,0 +1,46 @@
+table dim_host
+	lineageTag: 7a11507a-754f-428f-9433-3df4f6b84c7a
+
+	column host_id
+		dataType: string
+		lineageTag: 678e8d95-d20d-4184-a1f4-137f32260f43
+		summarizeBy: none
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_name
+		dataType: string
+		lineageTag: ca1b59f3-6a25-4d4c-8164-70b41785fc8f
+		summarizeBy: none
+		sourceColumn: host_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculated_host_listings_count
+		dataType: string
+		lineageTag: 0cb80792-58e6-4fb9-91b6-4faf7c01c132
+		summarizeBy: none
+		sourceColumn: calculated_host_listings_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_host = m
+		mode: import
+		source =
+				let
+				    Cols      = Table.SelectColumns(base_combinada, {"host_id", "host_name", "calculated_host_listings_count"}),
+				    // Primero convertir a texto y limpiar para que todos sean del mismo tipo
+				    Tipo      = Table.TransformColumnTypes(Cols, {{"host_id", type text}}),
+				    Limpio    = Table.TransformColumns(Tipo, {{"host_id", Text.Clean, type text}}),
+				    // Filtrar nulls y vacíos ANTES del distinct
+				    Filtrados = Table.SelectRows(Limpio, each [host_id] <> null and [host_id] <> ""),
+				    // Ahora sí el distinct funciona correctamente
+				    Distintos = Table.Distinct(Filtrados, {"host_id"})
+				in
+				    Distintos
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

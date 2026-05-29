@@ -1,0 +1,108 @@
+table fact_listings
+	lineageTag: 37206f3e-c3e0-4819-9d02-f57268633441
+
+	column id
+		dataType: string
+		lineageTag: 2ecf487a-6a02-4a29-bfca-174ea4393022
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column host_id
+		dataType: string
+		lineageTag: 75cc657f-f543-4208-9dfa-d99e3dc2ab84
+		summarizeBy: none
+		sourceColumn: host_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: f9cb6b79-9479-4d51-af74-39ee8cd98c06
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column minimum_nights
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d85a693-9e7c-4f85-ac9f-969d87f5452d
+		summarizeBy: sum
+		sourceColumn: minimum_nights
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_reviews
+		dataType: int64
+		formatString: 0
+		lineageTag: 20ac221c-f8f7-4c04-a53e-a709e925c03d
+		summarizeBy: sum
+		sourceColumn: number_of_reviews
+
+		annotation SummarizationSetBy = Automatic
+
+	column reviews_per_month
+		dataType: double
+		lineageTag: 830f0c05-56d9-4239-bb85-23b285fe1428
+		summarizeBy: sum
+		sourceColumn: reviews_per_month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_neighbourhood
+		dataType: int64
+		formatString: 0
+		lineageTag: fea76087-ab5b-43e0-993b-60768476f642
+		summarizeBy: none
+		sourceColumn: id_neighbourhood
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_date
+		dataType: int64
+		formatString: 0
+		lineageTag: b72ec645-6add-44dc-ae9d-5c07da9eb678
+		summarizeBy: none
+		sourceColumn: id_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_roomType
+		dataType: int64
+		formatString: 0
+		lineageTag: ec147f77-d941-466f-947f-d48262a9d317
+		summarizeBy: none
+		sourceColumn: id_roomType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_listings = m
+		mode: import
+		source =
+				let
+				    #"RT_join" = Table.NestedJoin(base_combinada, {"room_type"}, dim_room_Type, {"room_type"}, "dim_room_Type", JoinKind.LeftOuter),
+				    #"RT_id"   = Table.ExpandTableColumn(#"RT_join", "dim_room_Type", {"id_roomType"}, {"id_roomType"}),
+				    #"NB_join" = Table.NestedJoin(#"RT_id", {"neighbourhood"}, dim_neighbourhood, {"neighbourhood"}, "dim_nb", JoinKind.LeftOuter),
+				    #"NB_id"   = Table.ExpandTableColumn(#"NB_join", "dim_nb", {"id_neighbourhood"}, {"id_neighbourhood"}),
+				    #"DT_join" = Table.NestedJoin(#"NB_id", {"last_review"}, dim_date, {"last_review"}, "dim_date", JoinKind.LeftOuter),
+				    #"DT_id"   = Table.ExpandTableColumn(#"DT_join", "dim_date", {"id_date"}, {"id_date"}),
+				    #"Limpia"  = Table.RemoveColumns(#"DT_id", {
+				                     "name", "host_name", "neighbourhood_group",
+				                     "neighbourhood", "latitude", "longitude", "room_type", "last_review",
+				                     "calculated_host_listings_count", "availability_365", "city", "name_limpio"}),
+				    // Convertir host_id a texto limpio, igual que dim_host
+				    #"host_txt"   = Table.TransformColumnTypes(#"Limpia", {{"host_id", type text}}),
+				    #"host_clean" = Table.TransformColumns(#"host_txt", {{"host_id", Text.Clean, type text}})
+				in
+				    #"host_clean"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

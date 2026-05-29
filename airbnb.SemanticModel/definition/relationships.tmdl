@@ -1,30 +1,21 @@
-relationship 2e8ae6a1-118e-42c3-86c5-e3098d75787d
+relationship 2b0b4d94-eb2b-4893-ade5-e47fd1fd31b7
 	joinOnDateBehavior: datePartOnly
-	fromColumn: madrid_airbnb.last_review
-	toColumn: LocalDateTable_e013f620-fd16-4c2e-9533-988287e4ed74.Date
+	fromColumn: dim_date.last_review
+	toColumn: LocalDateTable_b45107fd-d3ad-48bf-a93a-d4bbd8662b39.Date
 
-relationship 055fd003-e919-44a2-8344-96f5a0b8b5a7
-	joinOnDateBehavior: datePartOnly
-	fromColumn: london_airbnb.last_review
-	toColumn: LocalDateTable_dca6a37c-ad43-4e59-bc6f-5d9e3ad64444.Date
+relationship AutoDetected_c91b5224-61d7-4a2a-9e14-8a7d172f9e51
+	fromColumn: fact_listings.id_neighbourhood
+	toColumn: dim_neighbourhood.id_neighbourhood
 
-relationship e681c884-b4e8-4d73-a863-482118dfae28
-	joinOnDateBehavior: datePartOnly
-	fromColumn: NY_airbnb.last_review
-	toColumn: LocalDateTable_e59332f3-c2bb-43e8-bc07-8fba30d62600.Date
+relationship AutoDetected_d1f674a0-7130-4505-9643-a959222dde40
+	fromColumn: fact_listings.id_date
+	toColumn: dim_date.id_date
 
-relationship 4ae7a358-5006-4c9c-af4b-5c67cb6374e9
-	joinOnDateBehavior: datePartOnly
-	fromColumn: milan_airbnb.last_review
-	toColumn: LocalDateTable_3e1fe1e5-bdff-480c-ba5e-52e0409b49df.Date
+relationship AutoDetected_31c173ee-a75b-412c-93f4-9b5397a69ef8
+	fromColumn: fact_listings.id_roomType
+	toColumn: dim_room_Type.id_roomType
 
-relationship fd80cb00-d0ef-41bf-afcf-80b674b69721
-	joinOnDateBehavior: datePartOnly
-	fromColumn: tokyo_airbnb.last_review
-	toColumn: LocalDateTable_92649bbc-6abd-4e31-9543-2dc654dfd80f.Date
-
-relationship c6ed420f-43d3-4a46-ab4c-01872f228558
-	joinOnDateBehavior: datePartOnly
-	fromColumn: sydney_airbnb.last_review
-	toColumn: LocalDateTable_80ae01ff-1d34-4d20-a128-164f50731ceb.Date
+relationship 587c11c4-9b27-d577-c985-238374c1ce96
+	fromColumn: fact_listings.host_id
+	toColumn: dim_host.host_id
 
