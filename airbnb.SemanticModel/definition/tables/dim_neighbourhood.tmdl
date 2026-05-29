@@ -26,11 +26,31 @@ table dim_neighbourhood
 
 		annotation SummarizationSetBy = Automatic
 
+	column latitude
+		dataType: double
+		lineageTag: ff481953-60a5-457b-9be4-aabe9e4d9964
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 462f9696-09ca-4286-95d5-cbe57b30c633
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition dim_neighbourhood = m
 		mode: import
 		source =
 				let
-				    Cols      = Table.SelectColumns(base_combinada, {"neighbourhood", "city"}),
+				    Cols      = Table.SelectColumns(base_combinada, {"neighbourhood", "city", "latitude", "longitude"}),
 				    Distintos = Table.Distinct(Cols, {"neighbourhood"}),
 				    Filtrados = Table.SelectRows(Distintos, each [neighbourhood] <> "" and [neighbourhood] <> null),
 				    Indexado  = Table.AddIndexColumn(Filtrados, "id_neighbourhood", 1, 1, Int64.Type)
