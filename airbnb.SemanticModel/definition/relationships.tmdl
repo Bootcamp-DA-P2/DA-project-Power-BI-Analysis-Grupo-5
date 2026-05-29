@@ -15,3 +15,7 @@ relationship AutoDetected_31c173ee-a75b-412c-93f4-9b5397a69ef8
 	fromColumn: fact_listings.id_roomType
 	toColumn: dim_room_Type.id_roomType
 
+relationship 587c11c4-9b27-d577-c985-238374c1ce96
+	fromColumn: fact_listings.host_id
+	toColumn: dim_host.host_id
+

@@ -96,6 +96,7 @@ table fact_listings
 				                     "name", "host_name", "neighbourhood_group",
 				                     "neighbourhood", "latitude", "longitude", "room_type", "last_review",
 				                     "calculated_host_listings_count", "availability_365", "city", "name_limpio"}),
+				    // Convertir host_id a texto limpio, igual que dim_host
 				    #"host_txt"   = Table.TransformColumnTypes(#"Limpia", {{"host_id", type text}}),
 				    #"host_clean" = Table.TransformColumns(#"host_txt", {{"host_id", Text.Clean, type text}})
 				in
