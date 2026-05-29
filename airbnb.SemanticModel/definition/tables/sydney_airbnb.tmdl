@@ -131,14 +131,6 @@ table sydney_airbnb
 
 		annotation SummarizationSetBy = Automatic
 
-	column Column1
-		dataType: string
-		lineageTag: 00aeab72-a1e9-4fea-968b-569d47c4816e
-		summarizeBy: none
-		sourceColumn: Column1
-
-		annotation SummarizationSetBy = Automatic
-
 	partition sydney_airbnb = m
 		mode: import
 		source =
@@ -173,11 +165,12 @@ table sydney_airbnb
 				        {"latitude", each try Number.From(Text.Replace(Text.Trim(Text.From(_)), ",", ".")) otherwise null, type number},
 				        {"longitude", each try Number.From(Text.Replace(Text.Trim(Text.From(_)), ",", ".")) otherwise null, type number}
 				    }
-				)
+				),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Removed Errors15",{""})
 				in
-				    #"Removed Errors15"
+				    #"Removed Columns2"
 
 	annotation PBI_NavigationStepName = Navegación
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

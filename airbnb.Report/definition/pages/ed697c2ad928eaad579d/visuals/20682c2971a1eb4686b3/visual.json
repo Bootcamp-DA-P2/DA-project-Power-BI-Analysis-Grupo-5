@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "20682c2971a1eb4686b3",
+  "position": {
+    "x": 5.3731343283582085,
+    "y": 0,
+    "z": 19000,
+    "height": 103.88059701492537,
+    "width": 222.08955223880596,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'image'"
+                }
+              }
+            },
+            "sourceFile": {
+              "image": {
+                "name": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'zcxcxc.png.png'"
+                    }
+                  }
+                },
+                "url": {
+                  "expr": {
+                    "ResourcePackageItem": {
+                      "PackageName": "RegisteredResources",
+                      "PackageType": 1,
+                      "ItemName": "zcxcxc.png36073871094589016.png"
+                    }
+                  }
+                },
+                "scaling": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'Normal'"
+                    }
+                  }
+                }
+              }
+            },
+            "fit": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fill'"
+                }
+              }
+            },
+            "effects": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "backgroundEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "backgroundColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#313131'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

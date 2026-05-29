@@ -139,14 +139,6 @@ table Append1
 
 		annotation SummarizationSetBy = Automatic
 
-	column Column1
-		dataType: string
-		lineageTag: 60ce6106-a4ab-46f9-9474-c38e38592199
-		summarizeBy: none
-		sourceColumn: Column1
-
-		annotation SummarizationSetBy = Automatic
-
 	partition Append1 = m
 		mode: import
 		source =
@@ -156,7 +148,7 @@ table Append1
 				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Removed Columns", {"id"}),
 				    #"Filtered Rows" = Table.SelectRows(#"Removed Errors", each [host_id] <> null and [host_id] <> ""),
 				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [host_name] <> null and [host_name] <> ""),
-				    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [last_review] <> null and [last_review] <> "")
+				    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each ([last_review] <> null and [last_review] <> ""))
 				in
 				    #"Filtered Rows2"
 
