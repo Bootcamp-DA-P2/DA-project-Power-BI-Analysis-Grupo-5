@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 1055.3086434486938,
-        "y": 271.719435088598
+        "x": 562.66667683919275,
+        "y": 353.33333333333337
       },
       "nodes": [
         {
           "location": {
             "x": 1566.3679620598637,
-            "y": 1042.7670767385789
+            "y": 1140.8747573627643
           },
           "nodeIndex": "dim_date",
           "nodeLineageTag": "b2ea870e-b7b9-4a28-aa3a-22b0f34aff5c",
@@ -24,7 +24,7 @@
         {
           "location": {
             "x": 1628.1168132347379,
-            "y": 196.21536124837087
+            "y": 294.32304187255625
           },
           "nodeIndex": "dim_host",
           "nodeLineageTag": "7a11507a-754f-428f-9433-3df4f6b84c7a",
@@ -32,12 +32,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 3
         },
         {
           "location": {
             "x": 1524.3687402639289,
-            "y": 447.27733995538728
+            "y": 545.38502057957271
           },
           "nodeIndex": "fact_listings",
           "nodeLineageTag": "37206f3e-c3e0-4819-9d02-f57268633441",
@@ -45,12 +45,12 @@
             "height": 408.9502528713802,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 4
         },
         {
           "location": {
             "x": 1039.8149887341449,
-            "y": 510.97227810399318
+            "y": 609.07995872817855
           },
           "nodeIndex": "dim_room_Type",
           "nodeLineageTag": "f7716272-3e84-410d-98a6-514cf7a4d280",
@@ -62,8 +62,8 @@
         },
         {
           "location": {
-            "x": 1967.2901194663825,
-            "y": 446.76823510159767
+            "x": 1814.2901143801193,
+            "y": 611.54258239244962
           },
           "nodeIndex": "dim_neighbourhood",
           "nodeLineageTag": "af1ba707-4bb4-4099-96e4-f1e75fffaa91",
@@ -71,11 +71,24 @@
             "height": 224,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 2128.3698574018172,
+            "y": 607.7870471412192
+          },
+          "nodeIndex": "Tabla_Divisas",
+          "nodeLineageTag": "51a3130d-86a2-4e91-9a0d-aefa9d112de5",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 70.955543900969985,
+      "zoomValue": 60,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
