@@ -1,0 +1,49 @@
+table Tabla_Divisas
+	lineageTag: 51a3130d-86a2-4e91-9a0d-aefa9d112de5
+
+	column Ciudad
+		lineageTag: 8ed25c37-2b04-4ba8-976c-6abb4fff4f03
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ciudad]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Moneda_Origen
+		lineageTag: d58e39b9-823e-4112-a994-ed93d30b5642
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Moneda_Origen]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tasa_a_USD
+		lineageTag: aaca8bf5-88ec-4e75-be95-16ea1a590090
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Tasa_a_USD]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Tabla_Divisas = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Ciudad", STRING,
+				    "Moneda_Origen", STRING,
+				    "Tasa_a_USD", DOUBLE,
+				    {
+				        {"Madrid", "EUR", 1.08},
+				        {"NY", "USD", 1.00},
+				        {"Sydney", "AUD", 0.65},
+				        {"Milan", "EUR", 1.08},
+				        {"Tokyo", "JPY", 0.0064},
+				        {"London", "GBP", 1.27}
+				    }
+				)
+
+	annotation PBI_Id = ab12b3eb13724cf581350dd223032584
+

@@ -19,6 +19,7 @@ ref table dim_neighbourhood
 ref table dim_date
 ref table LocalDateTable_b45107fd-d3ad-48bf-a93a-d4bbd8662b39
 ref table dim_host
+ref table Tabla_Divisas
 
 ref cultureInfo es-ES
 

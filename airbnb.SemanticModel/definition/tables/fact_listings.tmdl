@@ -1,6 +1,17 @@
 table fact_listings
 	lineageTag: 37206f3e-c3e0-4819-9d02-f57268633441
 
+	measure 'Total Precio USD' =
+			
+			SUMX(
+			    'fact_listings',
+			    'fact_listings'[price] * RELATED('Tabla_Divisas'[Tasa_a_USD])
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 4348996c-d0f2-4ead-904d-c8ae798395d9
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
+
 	column id
 		dataType: string
 		lineageTag: 2ecf487a-6a02-4a29-bfca-174ea4393022

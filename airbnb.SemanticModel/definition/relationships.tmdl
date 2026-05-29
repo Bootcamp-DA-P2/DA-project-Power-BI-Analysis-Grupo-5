@@ -19,3 +19,7 @@ relationship 587c11c4-9b27-d577-c985-238374c1ce96
 	fromColumn: fact_listings.host_id
 	toColumn: dim_host.host_id
 
+relationship 496d61ed-c70c-a91d-90e9-26c7e84571d2
+	fromColumn: dim_neighbourhood.city
+	toColumn: Tabla_Divisas.Ciudad
+
