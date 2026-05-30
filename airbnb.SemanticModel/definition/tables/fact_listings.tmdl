@@ -93,6 +93,26 @@ table fact_listings
 
 		annotation SummarizationSetBy = Automatic
 
+	column latitude
+		dataType: double
+		lineageTag: f8e80c14-643e-456e-a0f2-761cd59e2e45
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 21c3194c-d2f5-4946-878a-c87164b4931c
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	partition fact_listings = m
 		mode: import
 		source =
@@ -105,9 +125,8 @@ table fact_listings
 				    #"DT_id"   = Table.ExpandTableColumn(#"DT_join", "dim_date", {"id_date"}, {"id_date"}),
 				    #"Limpia"  = Table.RemoveColumns(#"DT_id", {
 				                     "name", "host_name", "neighbourhood_group",
-				                     "neighbourhood", "latitude", "longitude", "room_type", "last_review",
+				                     "neighbourhood", "room_type", "last_review",
 				                     "calculated_host_listings_count", "availability_365", "city", "name_limpio"}),
-				    // Convertir host_id a texto limpio, igual que dim_host
 				    #"host_txt"   = Table.TransformColumnTypes(#"Limpia", {{"host_id", type text}}),
 				    #"host_clean" = Table.TransformColumns(#"host_txt", {{"host_id", Text.Clean, type text}})
 				in
